@@ -17,6 +17,7 @@ from utilities import gpu_configuration
 from utilities.load_data import *
 from preprocessing_catalog.clean_and_extend import *
 from preprocessing_catalog.feature_downselection import *
+from model_related.model_setup import *
 
 with tf.device('/GPU:0'):
 
@@ -29,8 +30,24 @@ with tf.device('/GPU:0'):
 	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 100, catalog_data_url_og)
 	# Unpack dictionary keys into local variables
 	locals().update(image_data)
-
+	# Create a list of the local variables
+	variables = [globals()[var] for var in image_data.keys()]
 
 	#Preprocess catalog
 	original_dataset, dataset = run_all_preprocessing(dataset)
+	#Extracts features from catalogue which are relevant for training
+	print('>> Extracting relevant features ...')
+	combined_non_2D_features, index, labels = grab_features(dataset)
+	print('>> Feature extraction completed')
 
+	train_images, test_images, train_labels, test_labels, train_features, test_features, train_ind, test_ind, train_col_images, test_col_images \
+        = arrange_tt_features(*variables, combined_non_2D_features, index, labels)
+
+
+	test_df = dataset.iloc[test_ind]
+	print(test_df)
+	#sys.exit()
+
+	# ---------------------------------------------------------------
+	# Import and run models
+	# ---------------------------------------------------------------
