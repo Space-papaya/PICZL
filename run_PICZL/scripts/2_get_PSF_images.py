@@ -8,10 +8,11 @@ import pickle
 import seaborn as sns
 from astropy.table import Table
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 ##############################
 
-path = " "
+path = "/home/wroster/learning-photoz/PICZL_galaxies/samples/"
 ts = Table.read(path + 'COSMOS_NGOETZ_310.fits')
 df = ts.to_pandas()
 
@@ -32,7 +33,7 @@ gaussian_images = np.zeros((4, len(df), size, size))
 
 
 # Generate Gaussian images for each row and band
-for b, band in enumerate(bands):
+for b, band in tqdm(enumerate(bands), total=len(bands), desc="Processing Bands"):
     for idx, row in df.iterrows():
         fwhm = row[f'PSFSIZE_{band}']
         sigma = fwhm / 2.355
@@ -42,7 +43,7 @@ for b, band in enumerate(bands):
             gaussian_images[b, idx] = 0
 
 # Check the shape of the resulting array
-print(gaussian_images.shape)  # Should output (len(df), 4, 23, 23)
+print(gaussian_images.shape)  # Should output (4, len(df), 23, 23)
 ##############################
-store = " "
+store = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/scripts/clutter/"
 np.save(store + 'psf_images.npy', gaussian_images)
