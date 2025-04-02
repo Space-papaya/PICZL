@@ -13,11 +13,11 @@ import sys
 
 
 
-def fetch_all_inputs(url_catalog, url_images, sub_sample_yesno, sub_sample_size, url_catalog_og):
+def fetch_all_inputs(url_catalog, url_images, sub_sample_yesno, sub_sample_size):
 
 
 	# Fetch dataset
-	dataset = fetch_catalog(url_catalog, url_catalog_og)
+	dataset = fetch_catalog(url_catalog)
 
 	# Fetch images as a dictionary
 	image_data = fetch_images(url_images)
@@ -42,7 +42,7 @@ def fetch_all_inputs(url_catalog, url_images, sub_sample_yesno, sub_sample_size,
 
 
 
-def fetch_catalog(url, url_og):
+def fetch_catalog(url):
 
 	print('\n >> Processing dataset ...')
 	dataset = Table.read(url).to_pandas()
@@ -82,16 +82,25 @@ def fetch_images(url):
 		# Processed color cutouts (optical)
 		images_griz_col = np.load(url + "clean_griz_cols.npy")
 		color_bands = ["gr", "gi", "gz", "ri", "rz", "iz"]
-		image_data.update({f"im_{color_bands[idx]}": images_griz_col[idx] for idx in range(len(color_bands))})
+		image_data.update({f"im_{color_bands[idx]}_col": images_griz_col[idx] for idx in range(len(color_bands))})
 
-		# Dered model cutouts (optical)
-		mod_griz = np.load(url + "model_dered_griz.npy")
-		image_data.update({f"mod_{band}": mod_griz[idx] for idx, band in enumerate(band_names)})
+		# Dered aperture flux (optical)
+		ap_ims_LS10 = np.load(url + "ap_im_LS10.npy", allow_pickle=True).item()
+		image_data.update({f"ap_im_{band}": ap_ims_LS10[band] for band in band_names})
 
-		# Compute model color cutouts (optical)
-		for (b1, b2) in [("g", "r"), ("g", "i"), ("g", "z"), ("r", "i"), ("r", "z"), ("i", "z")]:
-			image_data[f"mod_{b1}{b2}"] = np.nan_to_num(np.divide(image_data[f"mod_{b1}"], image_data[f"mod_{b2}"],
-			out=np.zeros_like(image_data[f"mod_{b1}"]), where=(image_data[f"mod_{b2}"] != 0)))
+		# Dered aperture flux (IR)
+		ap_ims_WISE = np.load(url + "ap_im_WISE.npy", allow_pickle=True).item()
+		for w in range(1, 5):
+			image_data[f"ap_im_w{w}"] = ap_ims_WISE[f"w{w}"]
+
+		# Dered aperture flux colors (optical)
+		ap_ims_LS10_cols = np.load(url + "ap_ims_LS10_cols.npy")
+		image_data.update({f"ap_im_{color_bands[idx]}_col": ap_ims_LS10_cols[idx] for idx in range(len(color_bands))})
+
+		# Dered aperture flux colors (IR)
+		ap_ims_WISE_cols = np.load(url + "ap_ims_WISE_cols.npy")
+		wise_color_bands = ["w12", "w13", "w14", "w23", "w24", "w34"]
+		image_data.update({f"ap_im_{wise_color_bands[idx]}_col": ap_ims_WISE_cols[idx] for idx in range(len(wise_color_bands))})
 
 		# Dered flux residuals (optical)
 		LS10_griz_res = np.load(url + "resid_dered_griz.npy")
@@ -111,23 +120,14 @@ def fetch_images(url):
 		for w in range(1, 5):
 			image_data[f"ap_im_w{w}_ivar"] = ap_ims_WISE_ivar[f"w{w}"]
 
-		# Dered aperture flux (optical)
-		ap_ims_LS10 = np.load(url + "ap_im_LS10.npy", allow_pickle=True).item()
-		image_data.update({f"ap_im_{band}": ap_ims_LS10[band] for band in band_names})
+		# Dered model cutouts (optical)
+		mod_griz = np.load(url + "model_dered_griz.npy")
+		image_data.update({f"mod_{band}": mod_griz[idx] for idx, band in enumerate(band_names)})
 
-		# Dered aperture flux (IR)
-		ap_ims_WISE = np.load(url + "ap_im_WISE.npy", allow_pickle=True).item()
-		for w in range(1, 5):
-			image_data[f"ap_im_w{w}"] = ap_ims_WISE[f"w{w}"]
-
-		# Dered aperture flux colors (optical)
-		ap_ims_LS10_cols = np.load(url + "ap_ims_LS10_cols.npy")
-		image_data.update({f"ap_im_{color_bands[idx]}": ap_ims_LS10_cols[idx] for idx in range(len(color_bands))})
-
-		# Dered aperture flux colors (IR)
-		ap_ims_WISE_cols = np.load(url + "ap_ims_WISE_cols.npy")
-		wise_color_bands = ["w12", "w13", "w14", "w23", "w24", "w34"]
-		image_data.update({f"ap_im_{wise_color_bands[idx]}": ap_ims_WISE_cols[idx] for idx in range(len(wise_color_bands))})
+		# Compute model color cutouts (optical)
+		for (b1, b2) in [("g", "r"), ("g", "i"), ("g", "z"), ("r", "i"), ("r", "z"), ("i", "z")]:
+			image_data[f"mod_{b1}{b2}_col"] = np.nan_to_num(np.divide(image_data[f"mod_{b1}"], image_data[f"mod_{b2}"],
+			out=np.zeros_like(image_data[f"mod_{b1}"]), where=(image_data[f"mod_{b2}"] != 0)))
 
 		# PSF images
 		psf_im = np.load(url + "psf_images.npy")

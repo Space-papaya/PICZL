@@ -48,14 +48,14 @@ def run_all_preprocessing(dataset):
 
 	#Running all functions defined above
 	print(' >> Original catalog:')
-	original_dataset, dataset = type_one_hot_encoding(dataset)
+	dataset = type_one_hot_encoding(dataset)
 	dataset = fix_corrupted_fluxes(dataset)
 	dataset = dereden_fluxes_add_colour_features(dataset)
 	dataset = define_additional_catalogue_features(dataset)
 	print('\n >> Processed catalog:')
 	print(dataset)
 
-	return original_dataset, dataset
+	return dataset
 
 
 
@@ -92,12 +92,6 @@ def type_one_hot_encoding(dataset):
 	one_hot = pd.get_dummies(dataset['type'],dtype=int)
 	dataset = dataset.join(one_hot)
 
-	#Option to save the original dataset (set "1" for True, and "0" for False)
-	save = 1
-	if save==True:
-		#Saving the original catalog. Make sure to provide TWO VARIABLES for the function output.
-		original_dataset=dataset.copy()
-		return original_dataset, dataset
 
 	return pd.DataFrame(dataset) #316 coloumns
 
