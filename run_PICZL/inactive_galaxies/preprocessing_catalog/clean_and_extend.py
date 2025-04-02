@@ -209,17 +209,12 @@ def dereden_fluxes_add_colour_features(dataset):
 	new_dered_apflux_LS10 = pd.concat(new_dered_apflux_LS10, axis=1)
 	all_dered_apflux = new_dered_apflux_WISE.join(new_dered_apflux_LS10)
 
-	#Remove original fluxes (and transmissions) from catalogue since they have been replaced with deredened fluxes
-	bands = ["w1", "w2", "w3", "w4", "g", "r", "i", "z"]
-	remove_original_fluxes = ["flux_" + i for i in bands]
-
-
+	#Remove aperture fluxes (and transmissions) from catalogue since they have been replaced with deredened fluxes
 	dataset = dataset.join(all_dered_apflux)
 	dataset = dataset.drop(red_apflux_WISE,axis = 1)
 	dataset = dataset.drop(red_apflux_LS10,axis = 1)
 	dataset = dataset.drop(transmission_WISE,axis = 1)
 	dataset = dataset.drop(transmission_LS10,axis = 1)
-	dataset = dataset.drop(remove_original_fluxes,axis = 1)
 
 
 	# -------------------------------------------------------------------------------------

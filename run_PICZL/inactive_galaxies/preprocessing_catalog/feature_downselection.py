@@ -39,39 +39,22 @@ def grab_features(dataset):
 	labels = np.array(features['Z'])
 
 
-	#Remove undesired features
-	#non-trainable, amount: 11
-	features = features.drop(['FULLID','Z','RA','DEC', "Cat", 'BRICKID','BRICKNAME','RELEASE','OBJID','type','TS_ID'], axis=1)
-	#not helpful for redshift estimates based on scientific relevance, amount: 82
-	features = features.drop(['RA_IVAR','DEC_IVAR','RCHISQ_G','RCHISQ_R', 'RCHISQ_I', 'RCHISQ_Z','RCHISQ_W1','RCHISQ_W2','RCHISQ_W3','RCHISQ_W4', \
-				  'ANYMASK_G','ANYMASK_R','ANYMASK_I','ANYMASK_Z','ALLMASK_G','ALLMASK_R','ALLMASK_I','ALLMASK_Z','WISEMASK_W1','WISEMASK_W2',\
-	                          'GALDEPTH_G','GALDEPTH_R','GALDEPTH_I','GALDEPTH_Z','WISE_COADD_ID','FIBERFLUX_G','FIBERFLUX_R','FIBERFLUX_I','FIBERFLUX_Z',\
-				  'FIBERTOTFLUX_G','FIBERTOTFLUX_R','FIBERTOTFLUX_I','FIBERTOTFLUX_Z', 'REF_CAT','REF_ID','REF_EPOCH','GAIA_PHOT_G_MEAN_MAG',\
-				  'GAIA_PHOT_G_MEAN_FLUX_OVER_ERROR','GAIA_PHOT_BP_MEAN_MAG','GAIA_PHOT_BP_MEAN_FLUX_OVER_ERROR','GAIA_PHOT_RP_MEAN_MAG',\
-				  'GAIA_PHOT_RP_MEAN_FLUX_OVER_ERROR','GAIA_ASTROMETRIC_EXCESS_NOISE', 'GAIA_DUPLICATED_SOURCE','GAIA_PHOT_BP_RP_EXCESS_FACTOR',\
-				  'GAIA_ASTROMETRIC_SIGMA5D_MAX','GAIA_ASTROMETRIC_PARAMS_SOLVED','PARALLAX','PARALLAX_IVAR','PMRA','PMRA_IVAR','PMDEC','PMDEC_IVAR',\
-				  'MASKBITS','FITBITS','SERSIC','SERSIC_IVAR','ORIG_TYPE','EBV','FRACMASKED_G','FRACMASKED_R','FRACMASKED_I', 'FRACMASKED_Z'],axis=1)
-
+	#Remove features
+	features = features.drop(['FULLID','Z','RA','DEC', "Cat", 'type','TS_ID'], axis=1)
 
 
 	#Splitting features
 	features_dchisq = np.array(features.iloc[:, 0:5])
 	features_snr = np.array(features.iloc[:,[5,7,9,11,13,15,17,19]])
-	features_dered_flux = np.array(features.iloc[:,[6,8,10,12]]) #removed g,r,i,z, after adding model image
-	features_nobs = np.array(features.iloc[:, 29:37])
+	features_dered_flux = np.array(features.iloc[:,[6,8,10,12]]) #only WISE, after adding model image for g,r,i,z
 	features_frac_flux = np.array(features.iloc[:, 37:45])
-	features_fracin = np.array(features.iloc[:, 45:49])
 	features_psf_size = np.array(features.iloc[:, 49:53])
-	features_psf_depth = np.array(features.iloc[:, 53:59])
-	features_shape_r = np.array(features.iloc[:, 59])
-	features_shape_r_ivar = np.array(features.iloc[:, 60])
 	features_shape_e1 = np.array(features.iloc[:, 61])
 	features_shape_e1_ivar = np.array(features.iloc[:, 62])
 	features_shape_e2 = np.array(features.iloc[:, 63])
 	features_shape_e2_ivar = np.array(features.iloc[:, 64])
 	features_type = np.array(features.iloc[:, 65:70])
-	features_col = np.array(features.iloc[:, 76:92]) #remove griz and w1-w4 colours
-	#features_maskbits = np.array(features.iloc[:, 98:])
+	features_col = np.array(features.iloc[:, 76:92]) #removed griz and w1-w4 colours, substituted by images
 
 
 	#Normalize all non spatially connected features

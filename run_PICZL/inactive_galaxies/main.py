@@ -31,8 +31,6 @@ with tf.device('/GPU:0'):
 	locals().update(image_data)
 	# Create a list of the local variables
 	variables = [globals()[var] for var in image_data.keys()]
-	print(dataset)
-	sys.exit()
 
 	#Preprocess catalog
 	original_dataset, dataset = run_all_preprocessing(dataset)
@@ -40,6 +38,8 @@ with tf.device('/GPU:0'):
 	print('>> Extracting relevant features ...')
 	combined_non_2D_features, index, labels = grab_features(dataset)
 	print('>> Feature extraction completed')
+
+	sys.exit()
 
 	train_images, test_images, train_labels, test_labels, train_features, test_features, train_ind, test_ind, train_col_images, test_col_images \
         = arrange_tt_features(*variables, combined_non_2D_features, index, labels)
