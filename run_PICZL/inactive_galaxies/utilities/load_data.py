@@ -47,8 +47,14 @@ def fetch_catalog(url, url_og):
 	print('\n >> Processing dataset ...')
 	dataset = Table.read(url).to_pandas()
 
-	dataset_og = Table.read(url_og).to_pandas()
-	dataset=dataset[dataset_og.columns]
+
+	# Load ordered column names from text file
+	path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/required_columns.txt"
+	with open(path, "r") as f:
+		ordered_columns = [line.strip() for line in f.readlines()]
+
+	# Reorder dataset based on saved column order
+	dataset = dataset.reindex(columns=ordered_columns)
 
 
 	return dataset

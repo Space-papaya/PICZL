@@ -23,15 +23,16 @@ with tf.device('/GPU:0'):
 
 	#Load input data
 	catalog_data_url_og = '/home/wroster/learning-photoz/PICZL_galaxies/samples/TS_40489.fits'
-	catalog_data_url = '/home/wroster/learning-photoz/PICZL_galaxies/samples/COSMOS_NGOETZ_310.fits'
+	catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/COSMOS_NGOETZ_216.fits'
 	image_data_url = "/home/wroster/learning-photoz/PICZL_new/gather_images/data_cosmos_og/"
 
 
 	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 100, catalog_data_url_og)
-	# Unpack dictionary keys into local variables
 	locals().update(image_data)
 	# Create a list of the local variables
 	variables = [globals()[var] for var in image_data.keys()]
+	print(dataset)
+	sys.exit()
 
 	#Preprocess catalog
 	original_dataset, dataset = run_all_preprocessing(dataset)
