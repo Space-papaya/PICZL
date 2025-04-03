@@ -53,13 +53,13 @@ def get_pdfs(predictions, num_objects, num_samples):
 
 def calculate_metrics(modes, labels):
 
-	abs_bias = np.abs(labels - modes) / (1+labels)
-	bias = np.mean((labels - modes) / (1+labels))
+        bias_z = np.abs(labels - modes)
+        frac_z = bias_z/(1+labels)
 
-	acc = 1.4826 * np.median(abs_bias)
-	outlier_frac = np.where(abs_bias >0.15)[0].shape[0]/len(labels)
+        outlier_frac = np.where(frac_z >0.15)[0].shape[0]/len(labels)
+        accuracy = 1.48 * np.median(frac_z)
 
-	return acc, outlier_frac
+        return outlier_frac, accuracy
 
 
 

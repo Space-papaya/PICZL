@@ -43,6 +43,7 @@ with tf.device('/GPU:0'):
 	combined_non_2D_features, index, labels = grab_features(dataset)
 	print('>> Feature extraction completed')
 
+
 	# Separate variables based on whether they end with "col"
 	col_variables = [var_name for var_name in image_data.keys() if var_name.endswith("col")]
 	non_col_variables = [var_name for var_name in image_data.keys() if not var_name.endswith("col")]
@@ -64,17 +65,25 @@ with tf.device('/GPU:0'):
 	= arrange_tt_features(images, images_col, combined_non_2D_features, index, labels)
 
 
-
 	# ---------------------------------------------------------------
 	# Import and run models
 	# ---------------------------------------------------------------
 
 
 	# Load the model with the custom loss function
-	model_path = '/home/wroster/learning-photoz/PICZL_galaxies/output/psf/crps/models/0_1/'
+	model_path = '/home/wroster/learning-photoz/PICZL_galaxies/output/psf/'
 	#model = load_model(model_path+'model_CRPS_G=10_B=512_lr=0.001_N:1.h5', custom_objects={'crps_loss': crps_loss})
-	models = ['model_G=4_B=256_lr=0.0002.h5']
-	weights = [1]
+	models = ['crps/models/0_3/model_G=11_B=512_lr=0.0002.h5',
+		'crps/models/0_1/model_G=4_B=256_lr=0.0002.h5',
+		'crps/models/0_1/model_G=5_B=256_lr=0.00035.h5',
+		'crps/models/0_2/model_G=7_B=256_lr=0.0005.h5',
+		'nll/models/0_1/model_G=5_B=512_lr=0.0005.h5',
+		'nll/models/0_1/model_G=4_B=512_lr=0.0005.h5',
+		'nll/models/0_1/model_G=5_B=256_lr=0.0005.h5',
+		'nll/models/0_1/model_G=3_B=512_lr=0.00035.h5'
+		]
+#	weights = [1,1,1,1,1,1,1,1]
+	weights= [0.08227451309829409, 0.17245762536202783, 0.02718044442985964, 0.11249663791786871, 0.2592408249176275, 0.1408404956224673, 0.02917528832932573, 0.1763341703225292]
 	normalized_weights = weights/np.sum(weights)
 
 	all_pdfs = []
@@ -85,13 +94,12 @@ with tf.device('/GPU:0'):
 		preds = model.predict([test_images, test_col_images, test_features])
 		print(preds.shape)
 
-		pdf_scores, samples = get_pdfs(preds, len(test_labels), 501)
+		pdf_scores, samples = get_pdfs(preds, len(test_labels), 4001)
 		all_pdfs.append(pdf_scores)
 
 
 
 	norm_ens_pdfs, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig = ensemble_pdfs(normalized_weights, all_pdfs, samples)
-	print(norm_ens_pdfs.shape)
 
 
 	#dataset['phz'] = ens_modes
