@@ -50,23 +50,11 @@ def get_pdfs(predictions, num_objects, num_samples):
 
 
 
-def calculate_metrics_type(max_score_z_values, labels, type_mask):
 
-	abs_bias = np.abs(labels[type_mask] - max_score_z_values[type_mask]) / (1+labels[type_mask])
-	bias = np.mean((labels[type_mask] - max_score_z_values[type_mask]) / (1+labels[type_mask]))
+def calculate_metrics(modes, labels):
 
-	acc = 1.4826 * np.median(abs_bias)
-	outlier_frac = np.where(abs_bias >0.15)[0].shape[0]/len(labels[type_mask])
-
-	return bias, acc, outlier_frac
-
-
-
-
-def calculate_metrics(max_score_z_values, labels):
-
-	abs_bias = np.abs(labels - max_score_z_values) / (1+labels)
-	bias = np.mean((labels - max_score_z_values) / (1+labels))
+	abs_bias = np.abs(labels - modes) / (1+labels)
+	bias = np.mean((labels - modes) / (1+labels))
 
 	acc = 1.4826 * np.median(abs_bias)
 	outlier_frac = np.where(abs_bias >0.15)[0].shape[0]/len(labels)

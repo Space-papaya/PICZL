@@ -60,6 +60,11 @@ with tf.device('/GPU:0'):
 	print(f"Stacked images shape: {images.shape}")
 
 
+	train_images, test_images, train_labels, test_labels, train_features, test_features, train_ind, test_ind, train_col_images, test_col_images \
+	= arrange_tt_features(images, images_col, combined_non_2D_features, index, labels)
+
+
+
 	# ---------------------------------------------------------------
 	# Import and run models
 	# ---------------------------------------------------------------
@@ -68,7 +73,7 @@ with tf.device('/GPU:0'):
 	# Load the model with the custom loss function
 	model_path = '/home/wroster/learning-photoz/PICZL_galaxies/output/psf/crps/models/0_1/'
 	#model = load_model(model_path+'model_CRPS_G=10_B=512_lr=0.001_N:1.h5', custom_objects={'crps_loss': crps_loss})
-	models = ['model_G=3_B=256_lr=0.0005.h5']
+	models = ['model_G=4_B=256_lr=0.0002.h5']
 	weights = [1]
 	normalized_weights = weights/np.sum(weights)
 
@@ -77,10 +82,10 @@ with tf.device('/GPU:0'):
 	for x in range(0, len(models)):
 
 		model = load_model(model_path+models[x] , compile=False)
-		preds = model.predict([images, images_col, combined_non_2D_features])
+		preds = model.predict([test_images, test_col_images, test_features])
 		print(preds.shape)
 
-		pdf_scores, samples = get_pdfs(preds, len(dataset), 501)
+		pdf_scores, samples = get_pdfs(preds, len(test_labels), 501)
 		all_pdfs.append(pdf_scores)
 
 
@@ -89,9 +94,19 @@ with tf.device('/GPU:0'):
 	print(norm_ens_pdfs.shape)
 
 
+	#dataset['phz'] = ens_modes
+	#print(dataset['phz'])
+	#dataset['lower_1sig'] = lower_1sig
+	#dataset['upper_1sig'] = upper_1sig
+	#dataset['lower_3sig'] = lower_3sig
+	#dataset['upper_3sig'] = upper_3sig
 
+	#tab = Table.from_pandas(dataset)
+	#tab.write(pwd + 'redshift_results.fits', overwrite=True)
 
-
+	outlier_frac, accuracy = calculate_metrics(ens_modes, test_labels)
+	print('outlier frac: '+str(outlier_frac))
+	print('accuracy: ' +str(accuracy))
 
 
 
