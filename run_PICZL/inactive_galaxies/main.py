@@ -77,20 +77,20 @@ with tf.device('/GPU:0'):
 
 	norm_ens_pdfs, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig = ensemble_pdfs(normalized_weights, all_pdfs, samples)
 
-
-	#dataset['phz'] = ens_modes
-	#print(dataset['phz'])
-	#dataset['lower_1sig'] = lower_1sig
-	#dataset['upper_1sig'] = upper_1sig
-	#dataset['lower_3sig'] = lower_3sig
-	#dataset['upper_3sig'] = upper_3sig
-
-	#tab = Table.from_pandas(dataset)
-	#tab.write(pwd + 'redshift_results.fits', overwrite=True)
-
 	outlier_frac, accuracy = calculate_metrics(ens_modes, labels)
 	print('outlier frac: '+str(outlier_frac))
 	print('accuracy: ' +str(accuracy))
+
+
+	# ---------------------------------------------------------------
+	# Save results
+	# ---------------------------------------------------------------
+
+
+	#pwd = ''
+	#catalog_name = ''
+	#append_output(dataset, pwd, catalog_name)
+
 
 
 
