@@ -68,11 +68,8 @@ with tf.device('/GPU:0'):
 
 		model = load_model(model_path+models[x] , compile=False)
 		preds = model.predict([images, images_col, combined_non_2D_features])
-		print(preds.shape)
-
 		pdf_scores, samples = get_pdfs(preds, len(labels), 4001)
 		all_pdfs.append(pdf_scores)
-
 
 
 	norm_ens_pdfs, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig = ensemble_pdfs(normalized_weights, all_pdfs, samples)
