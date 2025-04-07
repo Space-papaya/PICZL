@@ -1,5 +1,0 @@
-# Ignore dataset or large files
-/files/
-*.fits
-*.npy
-*.h5
