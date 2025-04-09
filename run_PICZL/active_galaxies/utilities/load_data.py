@@ -103,7 +103,7 @@ def fetch_images(url):
 		image_data.update({f"ap_im_{wise_color_bands[idx]}_col": ap_ims_WISE_cols[idx] for idx in range(len(wise_color_bands))})
 
 		# Dered flux residuals (optical)
-		LS10_griz_res = np.load(url + "resid_dered_griz.npy")
+		LS10_griz_res = np.load(url + "dered_griz_resid.npy")
 		image_data.update({f"res_{band}": LS10_griz_res[idx] for idx, band in enumerate(band_names)})
 
 		# Dered aperture flux residuals (IR)
@@ -121,7 +121,7 @@ def fetch_images(url):
 			image_data[f"ap_im_w{w}_ivar"] = ap_ims_WISE_ivar[f"w{w}"]
 
 		# Dered model cutouts (optical)
-		mod_griz = np.load(url + "model_dered_griz.npy")
+		mod_griz = np.load(url + "dered_griz_model.npy")
 		image_data.update({f"mod_{band}": mod_griz[idx] for idx, band in enumerate(band_names)})
 
 		# Compute model color cutouts (optical)

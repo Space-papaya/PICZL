@@ -27,9 +27,9 @@ import sys
 
 def get_data(df, type):
 
-	RA = np.array(df['LS10_RA'])
-	DEC = np.array(df['LS10_DEC'])
-	bands = ['G', 'R', 'I', 'Z']  # for LS-DR10 data
+	RA = np.array(df['RA'])
+	DEC = np.array(df['DEC'])
+	bands = ['g', 'r', 'i', 'z']  # for LS-DR10 data
 
 	# Initialize a list to store the arrays for each source
 	all_sources_array = []
@@ -58,7 +58,7 @@ def get_data(df, type):
 					# Loop over each band to apply MW correction
 					for band_index, band in enumerate(bands):
 						# Get the MW transmission data for the current band
-						mw = df[f"MW_TRANSMISSION_{band}"]
+						mw = df[f"mw_transmission_{band}"]
 
 						# Correct the data for MW transmission
 						source_array[band_index] = image_data_griz[band_index] / mw[i]

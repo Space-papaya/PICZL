@@ -12,8 +12,8 @@ from tqdm import tqdm
 
 ##############################
 
-path = "/home/wroster/learning-photoz/PICZL_galaxies/samples/"
-ts = Table.read(path + 'COSMOS_NGOETZ_310.fits')
+path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/"
+ts = Table.read(path + 'FLASH_30_PICZL_ready.fits')
 df = ts.to_pandas()
 
 ##############################
@@ -45,5 +45,5 @@ for b, band in tqdm(enumerate(bands), total=len(bands), desc="Processing Bands")
 # Check the shape of the resulting array
 print(gaussian_images.shape)  # Should output (4, len(df), 23, 23)
 ##############################
-store = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/scripts/clutter/"
+store = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/"
 np.save(store + 'psf_images.npy', gaussian_images)

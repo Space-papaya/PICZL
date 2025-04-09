@@ -17,7 +17,7 @@ The catalogue on which these functions can be run requires following characteris
 import numpy as np
 from numpy import load
 import pandas as pd
-
+import sys
 
 # -------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------
@@ -38,16 +38,9 @@ def grab_features(dataset):
 	index = features.index
 	#labels = np.array(features['Z'])
 
-
 	#Remove features
-	features = features.drop(['FULLID','RA','DEC', "Cat", 'type','TS_ID'], axis=1)
+	features = features.drop(['FULLID','Z','RA','DEC', "Cat", 'type','TS_ID'], axis=1)
 
-	l=0
-	for i in features.columns:
-		l=l+1
-		print(l,i)
-
-	sys.exit()
 
 	#Splitting features
 	features_dchisq = np.array(features.iloc[:, 0:5])

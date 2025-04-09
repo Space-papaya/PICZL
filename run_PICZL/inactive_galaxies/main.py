@@ -21,19 +21,19 @@ from preprocessing_catalog.feature_downselection import *
 from tensorflow.keras.models import load_model
 from utilities.loss_functions import *
 from post_processing.distributions import *
-
+from post_processing.output import *
 
 #Load input data
 #catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/COSMOS_NGOETZ_216.fits'
-catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH/FLASH_LS10_PICZL_ready.fits'
+catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/FLASH_30_PICZL_ready.fits'
 
-image_data_url = "/home/wroster/learning-photoz/PICZL_new/gather_images/data_cosmos_og/"
-
+#image_data_url = "/home/wroster/learning-photoz/PICZL_new/gather_images/data_cosmos_og/"
+image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/"
 
 
 with tf.device('/GPU:0'):
 
-	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 100)
+	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 20)
 
 
 	#Preprocess catalog
@@ -43,7 +43,10 @@ with tf.device('/GPU:0'):
 
 	#Preparing images for ML model
 	images, images_col = stack_images(image_data)
-'''
+
+	print(images[0])
+	print(images_col[0])
+	print(combined_non_2D_features[0])
 
 	# ---------------------------------------------------------------
 	# Import and run models
@@ -71,15 +74,17 @@ with tf.device('/GPU:0'):
 
 		model = load_model(model_path+models[x] , compile=False)
 		preds = model.predict([images, images_col, combined_non_2D_features])
-		pdf_scores, samples = get_pdfs(preds, len(labels), 4001)
+		pdf_scores, samples = get_pdfs(preds, len(dataset), 4001)
 		all_pdfs.append(pdf_scores)
 
 
 	norm_ens_pdfs, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig = ensemble_pdfs(normalized_weights, all_pdfs, samples)
+	print(ens_modes)
 
-	outlier_frac, accuracy = calculate_metrics(ens_modes, labels)
-	print('outlier frac: '+str(outlier_frac))
-	print('accuracy: ' +str(accuracy))
+
+	#outlier_frac, accuracy = calculate_metrics(ens_modes, labels)
+	#print('outlier frac: '+str(outlier_frac))
+	#print('accuracy: ' +str(accuracy))
 
 
 	# ---------------------------------------------------------------
@@ -87,18 +92,9 @@ with tf.device('/GPU:0'):
 	# ---------------------------------------------------------------
 
 
-	#pwd = ''
-	#catalog_name = ''
-	#append_output(dataset, pwd, catalog_name)
+	pwd = image_data_url
+	catalog_name = 'FLASH_30'
 
-'''
-
-
-
-
-
-
-
-
+	append_output(dataset, pwd, catalog_name, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig)
 
 

@@ -6,11 +6,9 @@ import sys
 from sub_scripts.clean import *
 from sub_scripts.apertures import *
 
-file_path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH/"
-data = Table.read(file_path + 'FLASH_LS10_PICZL_ready.fits', hdu=1)
+file_path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/"
+data = Table.read(file_path + 'FLASH_30_PICZL_ready.fits', hdu=1)
 dataset = data.to_pandas()
-#dataset_sub = dataset.head(10).reset_index(drop=True)
-
 dataset_ext = run_all_preprocessing(dataset)
 
 # Define the radii of the circular apertures in arcseconds
@@ -33,7 +31,7 @@ ap_ims_LS10_cols, ap_ims_WISE_cols = ap_cols(ap_im_LS10,ap_im_WISE)
 
 #print(ap_ims_LS10_cols.shape)
 
-path='/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH/'
+path='/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/'
 
 np.save(path + 'ap_im_LS10.npy', ap_im_LS10, allow_pickle=True)
 np.save(path + 'ap_im_LS10_ivar.npy', ap_im_LS10_ivar, allow_pickle=True)

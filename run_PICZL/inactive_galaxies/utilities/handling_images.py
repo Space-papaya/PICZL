@@ -15,8 +15,4 @@ def stack_images(image_data):
 	images_col = np.stack(col_arrays, axis=-1)
 	images = np.stack(non_col_arrays, axis=-1)
 
-	# Print shapes to verify
-	print(f"Stacked images_col shape: {images_col.shape}")
-	print(f"Stacked images shape: {images.shape}")
-
 	return images, images_col

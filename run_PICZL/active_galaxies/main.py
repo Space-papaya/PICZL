@@ -21,21 +21,25 @@ from preprocessing_catalog.feature_downselection import *
 from tensorflow.keras.models import load_model
 from utilities.loss_functions import *
 from post_processing.distributions import *
-
+from post_processing.output import *
 
 #Load input data
-catalog_data_url = '/home/wroster/learning-photoz/PICZL_new/gather_images/data_euc/EUC_CPT_LS10_all_cols.fits'
-image_data_url = "/home/wroster/learning-photoz/PICZL_new/gather_images/data_euc/"
+#catalog_data_url = '/home/wroster/learning-photoz/PICZL_new/gather_images/data_euc/EUC_CPT_LS10_all_cols.fits'
+catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/FLASH_30_PICZL_ready.fits'
+
+#image_data_url = "/home/wroster/learning-photoz/PICZL_new/gather_images/data_euc/"
+image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/"
+
 
 
 with tf.device('/GPU:0'):
 
 	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 100)
 
-
 	#Preprocess catalog
 	dataset = run_all_preprocessing(dataset)
 	combined_non_2D_features, index, labels = grab_features(dataset)
+
 
 	#Preparing images for ML model
 	images, images_col = stack_images(image_data)
@@ -76,11 +80,11 @@ with tf.device('/GPU:0'):
 	norm_ens_pdfs, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig = ensemble_pdfs(normalized_weights, all_pdfs, samples)
 
 	print(ens_modes)
-	sys.exit()
+	#sys.exit()
 
-	outlier_frac, accuracy = calculate_metrics(ens_modes, labels)
-	print('outlier frac: '+str(outlier_frac))
-	print('accuracy: ' +str(accuracy))
+	#outlier_frac, accuracy = calculate_metrics(ens_modes, labels)
+	#print('outlier frac: '+str(outlier_frac))
+	#print('accuracy: ' +str(accuracy))
 
 
 	# ---------------------------------------------------------------
@@ -88,9 +92,9 @@ with tf.device('/GPU:0'):
 	# ---------------------------------------------------------------
 
 
-	#pwd = ''
-	#catalog_name = ''
-	#append_output(dataset, pwd, catalog_name)
+	pwd = image_data_url
+	catalog_name = "FLASH_30_act_"
+	append_output(dataset, pwd, catalog_name, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig)
 
 
 
