@@ -1,10 +1,4 @@
 # Ignore dataset or large files
-run_PICZL/files/
-*.fits
-*.npy
-*.h5
-
-run_PICZL/files/FLASH/
-*.fits
-*.npy
-
+/run_PICZL/files/**/*.fits
+/run_PICZL/files/**/*.npy
+/run_PICZL/files/**/*.h5

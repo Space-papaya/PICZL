@@ -6,8 +6,8 @@ import sys
 from sub_scripts.clean import *
 from sub_scripts.apertures import *
 
-file_path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH/"
-data = Table.read(file_path + 'FLASH_LS10_PICZL_ready.fits', hdu=1)
+file_path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/"
+data = Table.read(file_path + 'Ching_PICZL_ready.fits', hdu=1)
 dataset = data.to_pandas()
 #dataset_sub = dataset.head(10).reset_index(drop=True)
 
@@ -33,12 +33,11 @@ ap_ims_LS10_cols, ap_ims_WISE_cols = ap_cols(ap_im_LS10,ap_im_WISE)
 
 #print(ap_ims_LS10_cols.shape)
 
-path='/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH/'
 
-np.save(path + 'ap_im_LS10.npy', ap_im_LS10, allow_pickle=True)
-np.save(path + 'ap_im_LS10_ivar.npy', ap_im_LS10_ivar, allow_pickle=True)
-np.save(path + 'ap_im_WISE.npy', ap_im_WISE, allow_pickle=True)
-np.save(path + 'ap_im_WISE_ivar.npy', ap_im_WISE_ivar, allow_pickle=True)
-np.save(path + 'ap_im_WISE_res.npy', ap_im_WISE_res, allow_pickle=True)
-np.save(path + 'ap_ims_LS10_cols', ap_ims_LS10_cols, allow_pickle=True)
-np.save(path + 'ap_ims_WISE_cols', ap_ims_WISE_cols, allow_pickle=True)
+np.save(file_path + 'ap_im_LS10.npy', ap_im_LS10, allow_pickle=True)
+np.save(file_path + 'ap_im_LS10_ivar.npy', ap_im_LS10_ivar, allow_pickle=True)
+np.save(file_path + 'ap_im_WISE.npy', ap_im_WISE, allow_pickle=True)
+np.save(file_path + 'ap_im_WISE_ivar.npy', ap_im_WISE_ivar, allow_pickle=True)
+np.save(file_path + 'ap_im_WISE_res.npy', ap_im_WISE_res, allow_pickle=True)
+np.save(file_path + 'ap_ims_LS10_cols', ap_ims_LS10_cols, allow_pickle=True)
+np.save(file_path + 'ap_ims_WISE_cols', ap_ims_WISE_cols, allow_pickle=True)

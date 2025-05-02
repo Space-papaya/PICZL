@@ -25,16 +25,16 @@ from post_processing.output import *
 
 #Load input data
 #catalog_data_url = '/home/wroster/learning-photoz/PICZL_new/gather_images/data_euc/EUC_CPT_LS10_all_cols.fits'
-catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/FLASH_30_PICZL_ready.fits'
+#catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/FLASH_30_PICZL_ready.fits'
+catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/Ching_PICZL_ready.fits'
 
 #image_data_url = "/home/wroster/learning-photoz/PICZL_new/gather_images/data_euc/"
-image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/"
-
+image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/"
 
 
 with tf.device('/GPU:0'):
 
-	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 100)
+	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, True, 2000)
 
 	#Preprocess catalog
 	dataset = run_all_preprocessing(dataset)
@@ -73,13 +73,16 @@ with tf.device('/GPU:0'):
 
 		model = load_model(model_path+models[x] , compile=False)
 		preds = model.predict([images, images_col, combined_non_2D_features])
-		pdf_scores, samples = get_pdfs(preds, len(dataset), 2001)
+		pdf_scores, samples = get_pdfs(preds, len(dataset), 4001)
 		all_pdfs.append(pdf_scores)
 
 
 	norm_ens_pdfs, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig = ensemble_pdfs(normalized_weights, all_pdfs, samples)
 
 	print(ens_modes)
+	#np.savez(image_data_url + 'pdf_data_act.npz', samples=samples, pdf_scores=norm_ens_pdfs)
+	#sys.exit()
+
 	#sys.exit()
 
 	#outlier_frac, accuracy = calculate_metrics(ens_modes, labels)
@@ -93,8 +96,8 @@ with tf.device('/GPU:0'):
 
 
 	pwd = image_data_url
-	catalog_name = "FLASH_30_act_"
-	append_output(dataset, pwd, catalog_name, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig)
+	catalog_name = "Ching_"
+	append_output(dataset, pwd, catalog_name, ens_modes, lower_1sig, upper_1sig)
 
 
 

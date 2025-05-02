@@ -7,7 +7,7 @@ import sys
 from sub_scripts.colours import *
 
 #load the observations
-griz  = np.load('/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH/dered_griz_obs.npy')
+griz  = np.load('/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/dered_griz_obs.npy')
 i_g =griz[0] #[:100]
 i_r =griz[1] #[:100]
 i_i =griz[2] #[:100]

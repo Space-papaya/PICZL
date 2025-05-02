@@ -165,7 +165,7 @@ def clean_obs(images_g, images_r, images_i, images_z):
 
 
 	clean_griz = np.stack((images_g, images_r, images_i, images_z), axis=0)
-	np.save('/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/clean_dered_griz.npy', clean_griz)
+	np.save('/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/clean_dered_griz.npy', clean_griz)
 
 
 ##################################################################
@@ -436,7 +436,7 @@ def clean_cols(images_g, images_r, images_i, images_z):
 
 
 	clean_griz_cols = np.stack((images_gr, images_gi, images_gz, images_ri, images_rz, images_iz), axis=0)
-	np.save('/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/clean_griz_cols.npy', clean_griz_cols)
+	np.save('/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/clean_griz_cols.npy', clean_griz_cols)
 
 
 ##################################################################

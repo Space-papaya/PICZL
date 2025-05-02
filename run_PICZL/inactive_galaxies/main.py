@@ -25,16 +25,18 @@ from post_processing.output import *
 
 #Load input data
 #catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/COSMOS_NGOETZ_216.fits'
-catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/FLASH_30_PICZL_ready.fits'
+#catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/FLASH_30_PICZL_ready.fits'
+catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/Ching_PICZL_ready.fits'
 
 #image_data_url = "/home/wroster/learning-photoz/PICZL_new/gather_images/data_cosmos_og/"
-image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/"
+image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/"
 
 
 with tf.device('/GPU:0'):
 
-	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 20)
+	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, True, 2000)
 
+	print(dataset)
 
 	#Preprocess catalog
 	dataset = run_all_preprocessing(dataset)
@@ -44,9 +46,10 @@ with tf.device('/GPU:0'):
 	#Preparing images for ML model
 	images, images_col = stack_images(image_data)
 
-	print(images[0])
-	print(images_col[0])
-	print(combined_non_2D_features[0])
+	print(images.shape)
+	print(images_col.shape)
+	print(combined_non_2D_features.shape)
+
 
 	# ---------------------------------------------------------------
 	# Import and run models
@@ -81,7 +84,11 @@ with tf.device('/GPU:0'):
 	norm_ens_pdfs, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig = ensemble_pdfs(normalized_weights, all_pdfs, samples)
 	print(ens_modes)
 
+	#Saving pdfs
+	#np.savez(image_data_url + 'pdf_data_inact.npz', samples=samples, pdf_scores=norm_ens_pdfs)
+	#sys.exit()
 
+	# Sample statistics if spec-z available
 	#outlier_frac, accuracy = calculate_metrics(ens_modes, labels)
 	#print('outlier frac: '+str(outlier_frac))
 	#print('accuracy: ' +str(accuracy))
@@ -93,8 +100,8 @@ with tf.device('/GPU:0'):
 
 
 	pwd = image_data_url
-	catalog_name = 'FLASH_30'
+	catalog_name = 'Ching_'
 
-	append_output(dataset, pwd, catalog_name, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig)
+	append_output(dataset, pwd, catalog_name, ens_modes, lower_1sig, upper_1sig)
 
 

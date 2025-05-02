@@ -24,12 +24,11 @@ def fetch_all_inputs(url_catalog, url_images, sub_sample_yesno, sub_sample_size)
 
 	# Apply downselection if needed
 	if sub_sample_yesno:
-		sampled_df = dataset.sample(n=sub_sample_size, random_state=42)
-		sample_indices = sampled_df.index
+		sampled_df = dataset.iloc[:sub_sample_size].reset_index(drop=True)
 
 		# Downselect all image arrays
 		for key in image_data:
-			image_data[key] = image_data[key][sample_indices]
+			image_data[key] = image_data[key][:sub_sample_size]
 
 		return sampled_df, image_data
 
