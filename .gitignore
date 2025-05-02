@@ -1,4 +1,5 @@
 # Ignore dataset or large files
-/run_PICZL/files/**/*.fits
-/run_PICZL/files/**/*.npy
-/run_PICZL/files/**/*.h5
+/run_PICZL/**/*.fits
+/run_PICZL/**/*.npy
+/run_PICZL/**/*.h5
+/run_PICZL/**/*.npz
