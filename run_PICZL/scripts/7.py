@@ -11,7 +11,7 @@ data = Table.read(file_path + 'Ching_PICZL_ready.fits', hdu=1)
 dataset = data.to_pandas()
 #dataset_sub = dataset.iloc[2000:5000].reset_index(drop=True)
 
-for i in range(0,200):
+for i in range(34,200):
 	dataset_sub = dataset.iloc[4000+(i*5):4000+((i+1)*5)].reset_index(drop=True)
 
 	#Get the observations
