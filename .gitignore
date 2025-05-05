@@ -3,3 +3,10 @@
 /run_PICZL/**/*.npy
 /run_PICZL/**/*.h5
 /run_PICZL/**/*.npz
+/run_PICZL/**/*.pkl
+
+/train_PICZL/**/*.fits
+/train_PICZL/**/*.npy
+/train_PICZL/**/*.h5
+/train_PICZL/**/*.npz
+/train_PICZL/**/*.pkl

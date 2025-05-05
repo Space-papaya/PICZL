@@ -92,7 +92,13 @@ def ensemble_pdfs(weights, all_pdfs, samples):
 
 
 
+def get_point_estimates(pdf_scores, samples):
 
+        # Compute the weighted sum of pdf scores
+        norm_pdf_scores = pdf_scores / np.sum(pdf_scores, axis=1, keepdims=True)
+        modes = samples[1][np.argmax(norm_pdf_scores, axis=1)]
+
+        return modes
 
 
 

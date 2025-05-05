@@ -85,5 +85,5 @@ def grab_features(dataset):
 	combined_non_2D_features = np.concatenate((list(scaled_features.values()) + [features_col, features_type]), axis=1)
 	print('>> Feature extraction completed')
 
-	return combined_non_2D_features, index 
+	return combined_non_2D_features, index
 

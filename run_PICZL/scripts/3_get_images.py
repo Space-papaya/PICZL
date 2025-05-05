@@ -12,10 +12,10 @@ dataset = data.to_pandas()
 
 
 
-for i in range(0,200):
-	dataset_sub = dataset.iloc[5000+(i*5):5000+((i+1)*5)].reset_index(drop=True)
+for i in range(235,500):
+	dataset_sub = dataset.iloc[8500+(i*5):8500+((i+1)*5)].reset_index(drop=True)
 
 	#Get the observations
 	dered_griz_obs = get_data(dataset_sub, "obs")
-	np.save(file_path +"obs/" + "dered_griz_obs_5000_"+str(i)+".npy", dered_griz_obs)
+	np.save(file_path +"obs_2/" + "dered_griz_obs_8500_"+str(i)+".npy", dered_griz_obs)
 
