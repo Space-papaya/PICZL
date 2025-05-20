@@ -12,9 +12,16 @@ from tqdm import tqdm
 
 ##############################
 
-path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/"
-ts = Table.read(path + 'Ching_PICZL_ready.fits')
-df = ts.to_pandas()
+#path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_comp/"
+#ts = Table.read(path + 'combined_FLASH_PICZL_ready.fits')
+#df = ts.to_pandas()
+
+file_path = "/home/wroster/learning-photoz/PICZL_OZ/train_PICZL/data/"
+data = Table.read(file_path + 'TS_3pt.fits', hdu=1)
+datase = data.to_pandas()
+
+df = datase.iloc[80447:].reset_index(drop=True)
+
 
 ##############################
 
@@ -45,4 +52,4 @@ for b, band in tqdm(enumerate(bands), total=len(bands), desc="Processing Bands")
 # Check the shape of the resulting array
 print(gaussian_images.shape)  # Should output (4, len(df), 23, 23)
 ##############################
-np.save(path + 'psf_images.npy', gaussian_images)
+np.save(file_path + 'psf_images_LRG.npy', gaussian_images)

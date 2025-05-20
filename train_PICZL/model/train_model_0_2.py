@@ -49,7 +49,7 @@ def train_model(model, epochs, batch_size, learning_rate, loss_func, \
 
 
         #Make sure to save the best model weights
-        checkpoint = ModelCheckpoint('~/learning-photoz/PICZL_OZ/model/checkpoints/0_1/best_model_weights.h5', monitor='val_loss', save_best_only=True, mode='min', verbose=1)
+        checkpoint = ModelCheckpoint('~/learning-photoz/PICZL_OZ/model/checkpoints/0_2/best_model_weights.h5', monitor='val_loss', save_best_only=True, mode='min', verbose=1)
 
         #Training about to start
         print('training about to start')
@@ -85,7 +85,7 @@ def train_model(model, epochs, batch_size, learning_rate, loss_func, \
                           metrics=['accuracy'])
 
                 #Load the best saved model weights
-                model.load_weights('~/learning-photoz/PICZL_OZ/model/checkpoints/0_1/best_model_weights.h5')
+                model.load_weights('~/learning-photoz/PICZL_OZ/model/checkpoints/0_2/best_model_weights.h5')
 
         else:
                 print('Not loading best model weights')

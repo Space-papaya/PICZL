@@ -26,17 +26,15 @@ from post_processing.output import *
 #Load input data
 #catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/COSMOS_NGOETZ_216.fits'
 #catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/FLASH_30_PICZL_ready.fits'
-catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/Ching_PICZL_ready.fits'
+catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_comp/combined_FLASH_PICZL_ready.fits'
 
 #image_data_url = "/home/wroster/learning-photoz/PICZL_new/gather_images/data_cosmos_og/"
-image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/"
+image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_comp/"
 
 
 with tf.device('/GPU:0'):
 
-	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, True, 2000)
-
-	print(dataset)
+	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 20)
 
 	#Preprocess catalog
 	dataset = run_all_preprocessing(dataset)
@@ -81,8 +79,7 @@ with tf.device('/GPU:0'):
 		all_pdfs.append(pdf_scores)
 
 
-	norm_ens_pdfs, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig = ensemble_pdfs(normalized_weights, all_pdfs, samples)
-	print(ens_modes)
+	norm_ens_pdfs, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig, area_in_interval = ensemble_pdfs(normalized_weights, all_pdfs, samples)
 
 	#Saving pdfs
 	#np.savez(image_data_url + 'pdf_data_inact.npz', samples=samples, pdf_scores=norm_ens_pdfs)
@@ -100,8 +97,8 @@ with tf.device('/GPU:0'):
 
 
 	pwd = image_data_url
-	catalog_name = 'Ching_'
+	catalog_name = 'FLASH_'
 
-	append_output(dataset, pwd, catalog_name, ens_modes, lower_1sig, upper_1sig)
+	append_output(dataset, pwd, catalog_name, ens_modes, lower_1sig, upper_1sig, area_in_interval)
 
 

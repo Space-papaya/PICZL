@@ -21,7 +21,7 @@ from preprocessing_catalog.clean_and_extend import *
 from preprocessing_catalog.feature_downselection import *
 from model.get_model import *
 from model.train_test_data import *
-from model.train_model_0_1 import *
+from model.train_model_0_2 import *
 from utilities.loss_functions import *
 from post_processing.distributions import *
 from tensorflow.keras import backend as K
@@ -34,7 +34,7 @@ catalog_url = data_url + '/TS_3pt.fits'
 image_url = data_url + '/3pt/'
 
 
-with tf.device('/GPU:0'):
+with tf.device('/GPU:1'):
 
 	dataset, image_data = fetch_all_inputs(catalog_url, image_url, False, 10000)
 
@@ -55,12 +55,7 @@ with tf.device('/GPU:0'):
 	train_images, test_images, train_labels, test_labels, train_features, test_features, train_ind, test_ind, train_col_images, test_col_images \
 	= arrange_tt_features(images, images_col, catalog_features, index, labels)
 
-	'''
-	val = dataset.iloc[test_ind]
-	table = Table.from_pandas(val)
-	table.write('/home/wroster/learning-photoz/PICZL_OZ/train_PICZL/output/test_sample.fits', format='fits', overwrite=True)
-	sys.exit()
-	'''
+
 	# ---------------------------------------------------------------
 	# Import and run models
 	# ---------------------------------------------------------------
@@ -70,7 +65,7 @@ with tf.device('/GPU:0'):
 	loss_func = crps_loss #NLL_loss  #crps_loss
 	epochs = 1000
 
-	batch_sizes = [1024,2048]
+	batch_sizes = [1024, 2048]
 	num_gaussian = [4,5,6,7]
 	learning_rates = [0.0003, 0.0005, 0.0007]
 	version = '0_1'
@@ -123,7 +118,7 @@ with tf.device('/GPU:0'):
 				gc.collect()
 
 
-
+	
 	# Save all_histories_and_configs using pickle
 	with open('/home/wroster/learning-photoz/PICZL_OZ/train_PICZL/output/' + lf + '/hists/' + version + '/hist.pkl', 'wb') as pickle_file:
 		pickle.dump(all_histories_and_configs, pickle_file)

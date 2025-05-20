@@ -1,5 +1,6 @@
 
 
+
 from astropy.table import Table
 import pickle
 import numpy as np
@@ -7,7 +8,8 @@ import sys
 from sub_scripts.colours import *
 
 #load the observations
-griz  = np.load('/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/dered_griz_obs.npy')
+griz  = np.load('/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_comp/dered_griz_obs.npy')
+path = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_comp/'
 i_g =griz[0] #[:100]
 i_r =griz[1] #[:100]
 i_i =griz[2] #[:100]
@@ -35,6 +37,6 @@ images_z= np.array(images_z)
 
 
 #clean images
-clean_obs(images_g, images_r, images_i, images_z)
-clean_cols(images_g, images_r, images_i, images_z)
+clean_obs(images_g, images_r, images_i, images_z, path)
+clean_cols(images_g, images_r, images_i, images_z, path)
 

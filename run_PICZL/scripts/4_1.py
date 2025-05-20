@@ -1,4 +1,5 @@
 
+
 from astropy.table import Table
 import pickle
 import numpy as np
@@ -6,18 +7,18 @@ import sys
 from sub_scripts.fetch_cutouts import *
 
 
-file_path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/"
-data = Table.read(file_path + 'Ching_PICZL_ready.fits', hdu=1)
+file_path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_comp/"
+data = Table.read(file_path + 'combined_FLASH_PICZL_ready.fits', hdu=1)
 dataset = data.to_pandas()
-#dataset_sub = dataset.iloc[2000:5000].reset_index(drop=True)
 
-for i in range(31,200):
-	dataset_sub = dataset.iloc[7000+(i*5):7000+((i+1)*5)].reset_index(drop=True)
+dataset_sub = dataset.iloc[:].reset_index(drop=True)
+j=20000
+i=40
+#for i in range(0,100):
 
-	#Get the observations
-	dered_griz_obs = get_data(dataset_sub, "model")
-	np.save(file_path +"model/" + "dered_griz_model_7000_"+str(i)+".npy", dered_griz_obs)
+dataset_s = dataset_sub.iloc[j+(i*100):j+((i+1)*100)].reset_index(drop=True)
 
-##Get the observations
-#dered_griz_model = get_data(dataset_sub, "model")
-#np.save(file_path + "dered_griz_model_2.npy", dered_griz_model)
+#Get the observations
+dered_griz_obs = get_data(dataset_s, "model")
+np.save(file_path + "model/dered_griz_model_"+str(j)+"_"+str(i)+".npy", dered_griz_obs)
+

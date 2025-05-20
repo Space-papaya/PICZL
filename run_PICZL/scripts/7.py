@@ -6,19 +6,18 @@ import sys
 from sub_scripts.fetch_cutouts import *
 
 
-file_path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/"
-data = Table.read(file_path + 'Ching_PICZL_ready.fits', hdu=1)
+file_path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_comp/"
+data = Table.read(file_path + 'combined_FLASH_PICZL_ready.fits', hdu=1)
 dataset = data.to_pandas()
-#dataset_sub = dataset.iloc[2000:5000].reset_index(drop=True)
 
-for i in range(0,200):
-	dataset_sub = dataset.iloc[9000+(i*5):9000+((i+1)*5)].reset_index(drop=True)
+dataset_sub = dataset.iloc[:].reset_index(drop=True)
+j=20000
+i=40
+#for i in range(0,100):
 
-	#Get the observations
-	dered_griz_obs = get_data(dataset_sub, "resid")
-	np.save(file_path +"resid/" + "dered_griz_resid_9000_"+str(i)+".npy", dered_griz_obs)
+dataset_s = dataset_sub.iloc[j+(i*100):j+((i+1)*100)].reset_index(drop=True)
 
+#Get the observations
+dered_griz_obs = get_data(dataset_s, "resid")
+np.save(file_path + "resid/dered_griz_resid_"+str(j)+"_"+str(i)+".npy", dered_griz_obs)
 
-##Get the observations
-#dered_griz_resid = get_data(dataset_sub, "resid")
-#np.save(file_path + "dered_griz_resid_2.npy", dered_griz_resid)

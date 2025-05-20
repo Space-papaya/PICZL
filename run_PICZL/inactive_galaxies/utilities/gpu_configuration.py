@@ -4,7 +4,7 @@ import tensorflow as tf
 
 # Use tf.config.experimental.set_virtual_device_configuration to allocate a specific amount of GPU memory to script
 gpus = tf.config.experimental.list_physical_devices('GPU')
-memory = 30  # Specify memory in GB
+memory = 25  # Specify memory in GB
 
 if gpus:
     for gpu in gpus:

@@ -20,7 +20,7 @@ def pixel_threshold(image, threshold):
 ##################################################################
 
 
-def clean_obs(images_g, images_r, images_i, images_z):
+def clean_obs(images_g, images_r, images_i, images_z, path):
 
 
 	for i in tqdm(range(0, len(images_g))):
@@ -165,12 +165,12 @@ def clean_obs(images_g, images_r, images_i, images_z):
 
 
 	clean_griz = np.stack((images_g, images_r, images_i, images_z), axis=0)
-	np.save('/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/clean_dered_griz.npy', clean_griz)
+	np.save(path + 'clean_dered_griz_LRG.npy', clean_griz)
 
 
 ##################################################################
 
-def clean_cols(images_g, images_r, images_i, images_z):
+def clean_cols(images_g, images_r, images_i, images_z, path):
 
 
 	images_gr=np.zeros((len(images_g),23,23))
@@ -436,7 +436,7 @@ def clean_cols(images_g, images_r, images_i, images_z):
 
 
 	clean_griz_cols = np.stack((images_gr, images_gi, images_gz, images_ri, images_rz, images_iz), axis=0)
-	np.save('/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/Ching/clean_griz_cols.npy', clean_griz_cols)
+	np.save(path + 'clean_griz_cols_LRG.npy', clean_griz_cols)
 
 
 ##################################################################
