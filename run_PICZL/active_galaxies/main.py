@@ -93,11 +93,19 @@ with tf.device('/GPU:0'):
 	# ---------------------------------------------------------------
 	# Save results
 	# ---------------------------------------------------------------
+	error_results = batch_classify(samples[0], norm_ens_pdfs)
+	# Extract best_interval bounds
+	l1s = [res['best_interval'][0] for res in error_results]  # Lower bounds
+	u1s = [res['best_interval'][1] for res in error_results]  # Upper bounds
+	degeneracy = [res['degeneracy'] for res in error_results]
+	# Optional: get z_peak as "ens_modes" and anything else you need
+	#ens_modes = [res['z_peak'] for res in error_results]
 
 
 	pwd = image_data_url
-	catalog_name = "FLASH_"
-	append_output(dataset, pwd, catalog_name, ens_modes, lower_1sig, upper_1sig,area_in_interval)
+	catalog_name = 'FLASH_'
+	append_output(dataset, pwd, catalog_name, ens_modes, l1s, u1s, area_in_interval, degeneracy)
+
 
 
 
