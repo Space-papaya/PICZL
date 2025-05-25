@@ -71,7 +71,7 @@ def objective(trial):
 
 
 
-n_trials = 5000
+n_trials = 30000
 
 # Number of PDFs (weights)
 n_weights = len(all_pdfs_sorted)
