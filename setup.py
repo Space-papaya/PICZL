@@ -10,6 +10,7 @@ setup(
     package_dir={"": "src"},  # Specify 'src' as the package root
     install_requires=[  # List your package dependencies here
         "tensorflow",
+        "tensorflow_probability",
         "torch",
         "pandas",
         "matplotlib",
