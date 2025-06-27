@@ -12,9 +12,12 @@ from astropy.table import Table
 import pickle
 import numpy as np
 import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
 
 from utilities import gpu_configuration
-from utilities.load_data import *
+#from utilities.load_data import *
+from piczl.utilities import load_data
 from utilities.handling_images import *
 from preprocessing_catalog.clean_and_extend import *
 from preprocessing_catalog.feature_downselection import *
@@ -34,7 +37,9 @@ image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_c
 
 with tf.device('/GPU:0'):
 
-	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 20)
+	#dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 20)
+	dataset, image_data = load_data.fetch_all_inputs(catalog_data_url, image_data_url, True, 20)
+	sys.exit()
 
 	#Preprocess catalog
 	dataset = run_all_preprocessing(dataset)
@@ -102,7 +107,7 @@ with tf.device('/GPU:0'):
 	# Optional: get z_peak as "ens_modes" and anything else you need
 	#ens_modes = [res['z_peak'] for res in error_results]
 
-
+	sys.exit()
 	pwd = image_data_url
 	catalog_name = 'FLASH_'
 
