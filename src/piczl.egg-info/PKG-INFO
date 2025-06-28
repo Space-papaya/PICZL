@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: piczl
+Version: 0.1.0
+Summary: PICZL photometric redshifts.
+Author: William Roster
+Author-email: wroster@mpe.mpg.de
+Requires-Python: >=3.6

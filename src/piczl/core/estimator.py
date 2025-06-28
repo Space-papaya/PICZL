@@ -1,0 +1,60 @@
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
+MODEL_BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../models'))
+
+from piczl.config.model_config import CONFIGS
+from piczl.utilities import (
+    load_data,
+    handling_images,
+    gpu_configuration,
+    distributions
+)
+
+
+def run_estimation(catalog_path, image_path, mode='inactive', max_sources=20, pdf_samples=4001):
+    """
+    Run redshift estimation for a given catalog using a specified configuration.
+
+    Parameters:
+        catalog_path (str): Path to catalog file
+        image_path (str): Path to image data
+        mode (str): One of 'active' or 'inactive'
+        max_sources (int): Limit number of sources (for testing)
+	pdf_samples (int): Number of PDF samples in redshift range [0,8]
+    """
+    with tf.device('/GPU:0'):
+        dataset, image_data = load_data.fetch_all_inputs(catalog_path, image_path, normalize=True, max_sources=max_sources)
+        dataset = load_data.clean_and_extend.run_all_preprocessing(dataset)
+        features, index = load_data.feature_downselection.grab_features(dataset)
+        images, image_col = handling_images.stack_images(image_data)
+
+	config = CONFIGS[mode]
+	model_files = config["model_files"]
+	weights = np.array(config["model_weights"])
+	normalized_weights = weights / np.sum(weights)
+
+        all_pdfs = []
+        for model_file in model_files:
+      	    model_path = os.path.join(os.path.join(MODEL_BASE_DIR, mode), model_file)
+	    model = load_model(model_path, compile=False)
+            preds = model.predict([images, image_col, features])
+            pdfs, samples = distributions.get_pdfs(preds, len(dataset), pdf_samples)
+            all_pdfs.append(pdfs)
+
+
+	#Check details of what to output
+        norm_ens_pdfs, z_modes, areas = distributions.ensemble_pdfs(
+            normalized_weights, all_pdfs, samples
+        )
+
+        results = distributions.batch_classify(samples[0], norm_ens_pdfs)
+
+        return {
+            "z_peak": z_modes,
+            "errors": (l1, u1),
+            "degeneracies": [r["degeneracy"] for r in results]
+        }
