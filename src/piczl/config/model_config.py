@@ -34,6 +34,6 @@ INACTIVE_CONFIG = {
 
 
 CONFIGS = {
-    "active": ACTIVE_CONFIG,
-    "inactive": INACTIVE_CONFIG
+	"active": ACTIVE_CONFIG,
+	"inactive": INACTIVE_CONFIG
 }

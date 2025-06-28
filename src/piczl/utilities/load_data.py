@@ -13,7 +13,7 @@ import sys
 
 
 
-def fetch_all_inputs(url_catalog, url_images, sub_sample_yesno, sub_sample_size):
+def fetch_all_inputs(url_catalog, url_images, sub_sample_yesno=True, sub_sample_size=20):
 
 
 	# Fetch dataset
