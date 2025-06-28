@@ -17,14 +17,14 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../s
 
 from utilities import gpu_configuration
 #from utilities.load_data import *
-from piczl.utilities import load_data
-from utilities.handling_images import *
-from preprocessing_catalog.clean_and_extend import *
-from preprocessing_catalog.feature_downselection import *
+from piczl.utilities import *
+#from utilities.handling_images import *
+#from preprocessing_catalog.clean_and_extend import *
+#from preprocessing_catalog.feature_downselection import *
 from tensorflow.keras.models import load_model
-from utilities.loss_functions import *
-from post_processing.distributions import *
-from post_processing.output import *
+#from utilities.loss_functions import *
+#from post_processing.distributions import *
+#from post_processing.output import *
 
 #Load input data
 #catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/COSMOS_NGOETZ_216.fits'
@@ -39,19 +39,17 @@ with tf.device('/GPU:0'):
 
 	#dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 20)
 	dataset, image_data = load_data.fetch_all_inputs(catalog_data_url, image_data_url, True, 20)
-	sys.exit()
 
 	#Preprocess catalog
-	dataset = run_all_preprocessing(dataset)
-	combined_non_2D_features, index = grab_features(dataset)
-	print(combined_non_2D_features.shape)
+	dataset = clean_and_extend.run_all_preprocessing(dataset)
+	combined_non_2D_features, index = feature_downselection.grab_features(dataset)
 
 	#Preparing images for ML model
 	images, images_col = stack_images(image_data)
 
-	print(images.shape)
-	print(images_col.shape)
-	print(combined_non_2D_features.shape)
+	#print(images.shape)
+	#print(images_col.shape)
+	#print(combined_non_2D_features.shape)
 
 
 	# ---------------------------------------------------------------
@@ -80,11 +78,11 @@ with tf.device('/GPU:0'):
 
 		model = load_model(model_path+models[x] , compile=False)
 		preds = model.predict([images, images_col, combined_non_2D_features])
-		pdf_scores, samples = get_pdfs(preds, len(dataset), 4001)
+		pdf_scores, samples = distributions.get_pdfs(preds, len(dataset), 4001)
 		all_pdfs.append(pdf_scores)
 
 
-	norm_ens_pdfs, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig, area_in_interval = ensemble_pdfs(normalized_weights, all_pdfs, samples)
+	norm_ens_pdfs, ens_modes, lower_1sig, upper_1sig, lower_3sig, upper_3sig, area_in_interval = distributions.ensemble_pdfs(normalized_weights, all_pdfs, samples)
 
 	#Saving pdfs
 	#np.savez(image_data_url + 'pdf_data_inact.npz', samples=samples, pdf_scores=norm_ens_pdfs)
@@ -99,7 +97,7 @@ with tf.device('/GPU:0'):
 	# ---------------------------------------------------------------
 	# Save results
 	# ---------------------------------------------------------------
-	error_results = batch_classify(samples[0], norm_ens_pdfs)
+	error_results = distributions.batch_classify(samples[0], norm_ens_pdfs)
 	# Extract best_interval bounds
 	l1s = [res['best_interval'][0] for res in error_results]  # Lower bounds
 	u1s = [res['best_interval'][1] for res in error_results]  # Upper bounds
@@ -111,6 +109,6 @@ with tf.device('/GPU:0'):
 	pwd = image_data_url
 	catalog_name = 'FLASH_'
 
-	append_output(dataset, pwd, catalog_name, ens_modes, l1s, u1s, area_in_interval, degeneracy)
+	output.append_output(dataset, pwd, catalog_name, ens_modes, l1s, u1s, area_in_interval, degeneracy)
 
 
