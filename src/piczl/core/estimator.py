@@ -23,7 +23,10 @@ def run_estimation(catalog_path, image_path, mode='inactive', max_sources=20, pd
 	pdf_samples (int): Number of PDF samples in redshift range [0,8]
 	"""
 	with tf.device('/GPU:0'):
-		dataset, image_data = load_data.fetch_all_inputs(catalog_path, image_path, sub_sample_yesno=True, sub_sample_size=max_sources)
+		# Set whether to include PSF images based on mode
+		psf = False if mode == 'active' else True
+
+		dataset, image_data = load_data.fetch_all_inputs(catalog_path, image_path, psf=psf, sub_sample_yesno=True, sub_sample_size=max_sources)
 		dataset = clean_and_extend.run_all_preprocessing(dataset)
 		features, index = feature_downselection.grab_features(dataset)
 		images, image_col = handling_images.stack_images(image_data)
