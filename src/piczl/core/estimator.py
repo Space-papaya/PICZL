@@ -29,7 +29,7 @@ def run_estimation(catalog_path, image_path, mode, sub_sample, max_sources, pdf_
 		dataset, image_data = load_data.fetch_all_inputs(catalog_path, image_path, psf=psf, sub_sample_yesno=sub_sample, sub_sample_size=max_sources)
 		dataset = clean_and_extend.run_all_preprocessing(dataset)
 		features, index = feature_downselection.grab_features(dataset, mode)
-		images, image_col = handling_images.stack_images(image_data)
+		images, images_col = handling_images.stack_images(image_data)
 
 		config = CONFIGS[mode]
 		model_files = config["model_files"]
@@ -40,7 +40,7 @@ def run_estimation(catalog_path, image_path, mode, sub_sample, max_sources, pdf_
 		for model_file in model_files:
 			model_path = os.path.join(os.path.join(MODEL_BASE_DIR, mode), model_file)
 			model = load_model(model_path, compile=False)
-			preds = model.predict([images, image_col, features])
+			preds = model.predict([images, images_col, features])
 			pdfs, samples = distributions.get_pdfs(preds, len(dataset), pdf_samples)
 			all_pdfs.append(pdfs)
 
