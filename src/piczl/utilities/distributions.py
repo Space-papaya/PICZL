@@ -78,7 +78,7 @@ def ensemble_pdfs(weights, all_pdfs, samples):
 	norm_ens_pdf_scores = ens_pdf_scores / areas[:, np.newaxis]
 	ens_modes = samples[1][np.argmax(norm_ens_pdf_scores, axis=1)]
 
-
+	'''
 	# Convert the PDFs to CDFs
 	cdfs = np.cumsum(norm_ens_pdf_scores, axis=1)
 
@@ -90,7 +90,7 @@ def ensemble_pdfs(weights, all_pdfs, samples):
 	lower_bound_1sig = samples[0][np.abs(cdfs - confidence_percentiles[1]).argmin(axis=1)]
 	upper_bound_1sig = samples[0][np.abs(cdfs - confidence_percentiles[2]).argmin(axis=1)]
 	upper_bound_3sig = samples[0][np.abs(cdfs - confidence_percentiles[3]).argmin(axis=1)]
-
+	'''
 
 	#Compute FLASH likelihood for redshift slice [0.4, 1]
 	lower = 0.4
@@ -98,7 +98,7 @@ def ensemble_pdfs(weights, all_pdfs, samples):
 	mask = (samples[1] >= lower) & (samples[1] <= upper)
 	area_in_interval = np.trapz(norm_ens_pdf_scores[:, mask], x=samples[1][mask], axis=1)
 
-	return norm_ens_pdf_scores, ens_modes, lower_bound_1sig, upper_bound_1sig, lower_bound_3sig, upper_bound_3sig, area_in_interval
+	return norm_ens_pdf_scores, ens_modes, area_in_interval
 
 
 

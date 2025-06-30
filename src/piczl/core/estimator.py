@@ -11,7 +11,7 @@ from piczl.config.model_config import CONFIGS
 from piczl.utilities import *
 
 
-def run_estimation(catalog_path, image_path, mode='inactive', max_sources=20, pdf_samples=4001):
+def run_estimation(catalog_path, image_path, mode, sub_sample, max_sources, pdf_samples=4001):
 	"""
 	Run redshift estimation for a given catalog using a specified configuration.
 
@@ -26,9 +26,9 @@ def run_estimation(catalog_path, image_path, mode='inactive', max_sources=20, pd
 		# Set whether to include PSF images based on mode
 		psf = False if mode == 'active' else True
 
-		dataset, image_data = load_data.fetch_all_inputs(catalog_path, image_path, psf=psf, sub_sample_yesno=True, sub_sample_size=max_sources)
+		dataset, image_data = load_data.fetch_all_inputs(catalog_path, image_path, psf=psf, sub_sample_yesno=sub_sample, sub_sample_size=max_sources)
 		dataset = clean_and_extend.run_all_preprocessing(dataset)
-		features, index = feature_downselection.grab_features(dataset)
+		features, index = feature_downselection.grab_features(dataset, mode)
 		images, image_col = handling_images.stack_images(image_data)
 
 		config = CONFIGS[mode]
@@ -46,14 +46,13 @@ def run_estimation(catalog_path, image_path, mode='inactive', max_sources=20, pd
 
 
 		#Check details of what to output
-		norm_ens_pdfs, z_modes, areas = distributions.ensemble_pdfs(
-		normalized_weights, all_pdfs, samples
-		)
-		sys.exit()
+		norm_ens_pdfs, z_modes, areas = distributions.ensemble_pdfs(normalized_weights, all_pdfs, samples)
 		results = distributions.batch_classify(samples[0], norm_ens_pdfs)
 
-		return {
-			"z_peak": z_modes,
-			"errors": (l1, u1),
-			"degeneracies": [r["degeneracy"] for r in results]
-		}
+		# Extract best_interval bounds
+		l1s = [round(res['best_interval'][0],3) for res in results]
+		u1s = [round(res['best_interval'][1],3) for res in results]
+		degeneracy = [res['degeneracy'] for res in results]
+
+
+		return z_modes, l1s, u1s, degeneracy, dataset

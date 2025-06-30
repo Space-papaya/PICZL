@@ -16,15 +16,15 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
 
 from utilities import gpu_configuration
-#from utilities.load_data import *
-from piczl.utilities import *
-#from utilities.handling_images import *
-#from preprocessing_catalog.clean_and_extend import *
-#from preprocessing_catalog.feature_downselection import *
+from utilities.load_data import *
+#from piczl.utilities import *
+from utilities.handling_images import *
+from preprocessing_catalog.clean_and_extend import *
+from preprocessing_catalog.feature_downselection import *
 from tensorflow.keras.models import load_model
-#from utilities.loss_functions import *
-#from post_processing.distributions import *
-#from post_processing.output import *
+from utilities.loss_functions import *
+from post_processing.distributions import *
+from post_processing.output import *
 
 #Load input data
 #catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/COSMOS_NGOETZ_216.fits'
@@ -37,12 +37,12 @@ image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_c
 
 with tf.device('/GPU:0'):
 
-	#dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 20)
-	dataset, image_data = load_data.fetch_all_inputs(catalog_data_url, image_data_url, True, 20)
+	dataset, image_data = fetch_all_inputs(catalog_data_url, image_data_url, False, 20)
+	#dataset, image_data = load_data.fetch_all_inputs(catalog_data_url, image_data_url, True, 20)
 
 	#Preprocess catalog
-	dataset = clean_and_extend.run_all_preprocessing(dataset)
-	combined_non_2D_features, index = feature_downselection.grab_features(dataset)
+	dataset = run_all_preprocessing(dataset)
+	combined_non_2D_features, index = grab_features(dataset)
 
 	#Preparing images for ML model
 	images, images_col = stack_images(image_data)

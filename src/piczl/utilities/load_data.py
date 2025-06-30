@@ -129,17 +129,17 @@ def fetch_images(url, psf):
 			out=np.zeros_like(image_data[f"mod_{b1}"]), where=(image_data[f"mod_{b2}"] != 0)))
 
 
-	if psf:
+		if psf:
 
-		# PSF images
-		psf_im = np.load(url + "psf_images.npy")
-		image_data.update({f"psf_{band}": psf_im[idx] for idx, band in enumerate(band_names)})
+			# PSF images
+			psf_im = np.load(url + "psf_images.npy")
+			image_data.update({f"psf_{band}": psf_im[idx] for idx, band in enumerate(band_names)})
 
-		return image_data
+			return image_data
 
-	else:
+		else:
 
-		return image_data
+			return image_data
 
 
 	except FileNotFoundError as e:

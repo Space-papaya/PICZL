@@ -24,7 +24,7 @@ import sys
 
 
 
-def grab_features(dataset):
+def grab_features(dataset, mode):
 	'''
 	Input: dataset, feature names for aperture colours LS10 and WISE
 	Output: Numerical, non-co-dependant scalar features, aperture arrays of photometry, ivariance and residuals for LS10 and WISE
@@ -41,24 +41,39 @@ def grab_features(dataset):
 	#Remove features
 	features = features.drop(['FULLID','Z','RA','DEC', "Cat", 'type','TS_ID'], axis=1)
 
+	# Set which features to select
+	if mode != 'active':
 
-	#Splitting features
-	features_dchisq = np.array(features.iloc[:, 0:5])
-	features_snr = np.array(features.iloc[:,[5,7,9,11,13,15,17,19]])
-	features_dered_flux = np.array(features.iloc[:,[6,8,10,12]]) #only WISE, after adding model image for g,r,i,z
-	features_frac_flux = np.array(features.iloc[:, 37:45])
-	features_psf_size = np.array(features.iloc[:, 49:53])
-	features_shape_e1 = np.array(features.iloc[:, 61])
-	features_shape_e1_ivar = np.array(features.iloc[:, 62])
-	features_shape_e2 = np.array(features.iloc[:, 63])
-	features_shape_e2_ivar = np.array(features.iloc[:, 64])
-	features_type = np.array(features.iloc[:, 65:70])
-	features_col = np.array(features.iloc[:, 76:92]) #removed griz and w1-w4 colours, substituted by images
+		features_dchisq = np.array(features.iloc[:, 0:5])
+		features_snr = np.array(features.iloc[:,[5,17,29,41,53,71,89,107]])
+		features_dered_flux = np.array(features.iloc[:,[6,18,30,42]])
+		features_frac_flux = np.array(features.iloc[:, 133:141])
+		features_psf_size = np.array(features.iloc[:, 141:145])
+		features_shape_e1 = np.array(features.iloc[:, 145])
+		features_shape_e1_ivar = np.array(features.iloc[:, 146])
+		features_shape_e2 = np.array(features.iloc[:, 147])
+		features_shape_e2_ivar = np.array(features.iloc[:, 148])
+		features_type = np.array(features.iloc[:, 150:155])
+		features_col = np.array(features.iloc[:, 213:229])
+
+		#Normalize all non spatially connected features
+		feature_arrays = ['features_dchisq', 'features_snr', 'features_dered_flux', 'features_frac_flux', 'features_psf_size',\
+				 'features_shape_e1', 'features_shape_e1_ivar', 'features_shape_e2', 'features_shape_e2_ivar']
 
 
-	#Normalize all non spatially connected features
-	feature_arrays = ['features_dchisq', 'features_snr', 'features_dered_flux', 'features_frac_flux', 'features_psf_size',\
-			 'features_shape_e1', 'features_shape_e1_ivar', 'features_shape_e2', 'features_shape_e2_ivar']
+	else:
+
+		#Splitting features
+		features_dchisq = np.array(features.iloc[:, 0:5])
+		features_snr = np.array(features.iloc[:,[5,17,29,41,53,71,89,107]])
+		features_dered_flux = np.array(features.iloc[:,[6,18,30,42]])
+		features_frac_flux = np.array(features.iloc[:, 133:141])
+		features_type = np.array(features.iloc[:, 150:155])
+		features_col = np.array(features.iloc[:, 213:235])
+
+
+		#Normalize all non spatially connected features
+		feature_arrays = ['features_dchisq', 'features_snr', 'features_dered_flux', 'features_frac_flux']
 
 
 	scaled_features = {}
