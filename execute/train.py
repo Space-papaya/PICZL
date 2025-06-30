@@ -8,7 +8,7 @@ from piczl.utilities import *
 DATA_PATH = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_comp/'
 
 with tf.device('/GPU:0'):
-	z_modes, l1s, u1s, degeneracy, dataset = run_trainer(
+	run_trainer(
 	catalog_path=DATA_PATH + "combined_FLASH_PICZL_ready.fits",
 	image_path=DATA_PATH,
 	mode = "new",

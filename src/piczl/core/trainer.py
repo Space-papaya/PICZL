@@ -7,7 +7,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
 MODEL_BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../models'))
 
-from piczl.config import *
+from piczl.config.training_config import *
 from piczl.utilities import *
 
 
@@ -36,5 +36,24 @@ def run_trainer(catalog_path, image_path, mode, sub_sample, max_sources):
 		= train_test_data.arrange_tt_features(images, images_col, features, index, labels)
 
 
-		# Output from model training
-		predictions, histories = training_config()
+		predictions, histories = run_models(
+		loss_func=loss_functions.crps_loss,
+		epochs=50,
+		batch_sizes=[512, 1024],
+		num_gaussians=[5, 6, 7],
+		learning_rates=[0.001, 0.002],
+		version='0_1',
+		features=features,
+		train_images=train_images,
+		train_col_images=train_col_images,
+		train_features=train_features,
+		train_labels=train_labels,
+		test_images=test_images,
+		test_col_images=test_col_images,
+		test_features=test_features,
+		test_labels=test_labels
+		)
+
+
+
+

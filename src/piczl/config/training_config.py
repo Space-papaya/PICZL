@@ -4,11 +4,15 @@ import numpy as np
 import sys
 from tensorflow.keras import backend as K
 import gc
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
+from piczl.utilities import *
 
 
 
 def run_models(loss_func, epochs, batch_sizes, num_gaussians, learning_rates, version, features, \
-		train_images, train_col_images, train_features, train_labels, test_images, test_col_images, test_features, test_labels)
+		train_images, train_col_images, train_features, train_labels, test_images, test_col_images, test_features, test_labels):
 
 	# Training Hyperparameters
 	loss_func = crps_loss #NLL_loss  #crps_loss
@@ -18,7 +22,7 @@ def run_models(loss_func, epochs, batch_sizes, num_gaussians, learning_rates, ve
 	learning_rates = [0.0003, 0.0005, 0.0007]
 	version = '0_1'
 
-	if loss_func == 'crps_loss':
+	if loss_func == loss_functions.crps_loss:
 		lf = 'CRPS'
 	else:
 		lf = 'NLL'
