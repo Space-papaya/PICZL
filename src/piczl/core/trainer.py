@@ -40,7 +40,7 @@ def run_trainer(catalog_path, image_path, mode, sub_sample, max_sources):
 		loss_func=loss_functions.crps_loss,
 		epochs=50,
 		batch_sizes=[512, 1024],
-		num_gaussians=[5, 6, 7],
+		num_gaussian=[5, 6, 7],
 		learning_rates=[0.001, 0.002],
 		version='0_1',
 		features=features,

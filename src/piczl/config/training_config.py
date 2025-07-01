@@ -11,17 +11,10 @@ from piczl.utilities import *
 
 
 
-def run_models(loss_func, epochs, batch_sizes, num_gaussians, learning_rates, version, features, \
+def run_models(loss_func, epochs, batch_sizes, num_gaussian, learning_rates, version, features, \
 		train_images, train_col_images, train_features, train_labels, test_images, test_col_images, test_features, test_labels):
 
 	# Training Hyperparameters
-	loss_func = crps_loss #NLL_loss  #crps_loss
-	epochs = 1000
-	batch_sizes = [1024,2048]
-	num_gaussian = [4,5,6,7]
-	learning_rates = [0.0003, 0.0005, 0.0007]
-	version = '0_1'
-
 	if loss_func == loss_functions.crps_loss:
 		lf = 'CRPS'
 	else:
@@ -46,8 +39,8 @@ def run_models(loss_func, epochs, batch_sizes, num_gaussians, learning_rates, ve
 				tf.keras.backend.clear_session()
 
 				# Create and train multiple models
-				model = compile_model(features.shape[1], num_gauss, learning_rate, loss_func)
-				history, model = train_model(model, epochs, batch_size, learning_rate, loss_func,
+				model = get_model.compile_model(features.shape[1], num_gauss, learning_rate, loss_func)
+				history, model = train_model.train_model(model, epochs, batch_size, learning_rate, loss_func, version,
 							train_images, train_col_images, train_features, train_labels, test_images, test_col_images, test_features, test_labels)
 
 				print(f"Model {model_counter} trained. Validation Loss: {min(history.history['val_loss'])}")
