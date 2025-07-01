@@ -5,3 +5,5 @@
 **/*.npz
 **/*.pkl
 
+*.pyc
+__pycache__/
