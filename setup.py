@@ -11,12 +11,16 @@ setup(
     install_requires=[  # List your package dependencies here
         "tensorflow",
         "tensorflow_probability",
+        "tf-keras",
+        "pytest",
         "torch",
         "pandas",
         "matplotlib",
         "scikit-learn",
+        "scipy==1.10.0",
         "PyYAML",
         "astropy",
+        "tqdm",
     ],
     python_requires=">=3.6",  # Specify the minimum Python version
 )

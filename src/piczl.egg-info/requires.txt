@@ -1,7 +1,12 @@
 tensorflow
+tensorflow_probability
+tf-keras
+pytest
 torch
 pandas
 matplotlib
 scikit-learn
+scipy==1.10.0
 PyYAML
 astropy
+tqdm
