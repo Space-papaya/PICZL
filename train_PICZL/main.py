@@ -71,9 +71,9 @@ with tf.device('/GPU:0'):
 	epochs = 1000
 
 	batch_sizes = [1024,2048]
-	num_gaussian = [4,5,6,7]
+	num_gaussian = [8,9,10,11]
 	learning_rates = [0.0003, 0.0005, 0.0007]
-	version = '0_1'
+	version = '0_2'
 	lf = 'CRPS'
 
 	# Initialize a list to store all training histories and configurations

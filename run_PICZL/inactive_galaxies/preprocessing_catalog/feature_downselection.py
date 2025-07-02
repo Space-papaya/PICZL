@@ -42,6 +42,12 @@ def grab_features(dataset):
 	features = features.drop(['FULLID','Z','RA','DEC', "Cat", 'type','TS_ID'], axis=1)
 
 
+	for i in range(0, len(features.columns)):
+		print(i, features.columns[i])
+
+	sys.exit()
+
+
 	#Splitting features
 	features_dchisq = np.array(features.iloc[:, 0:5])
 	features_snr = np.array(features.iloc[:,[5,7,9,11,13,15,17,19]])

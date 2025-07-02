@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "piczl"
+version = "0.1.0"
+description = "PICZL photometric redshifts."
+authors = [
+    { name = "William Roster", email = "wroster@mpe.mpg.de" }
+]
+requires-python = ">=3.6"
+dependencies = [
+    "tensorflow",
+    "tensorflow_probability",
+    "tf-keras",
+    "pytest",
+    "torch",
+    "pandas",
+    "matplotlib",
+    "scikit-learn",
+    "scipy==1.10.0",
+    "PyYAML",
+    "astropy",
+    "tqdm",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

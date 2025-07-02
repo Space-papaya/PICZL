@@ -26,11 +26,12 @@ from post_processing.output import *
 #Load input data
 #catalog_data_url = '/home/wroster/learning-photoz/PICZL_new/gather_images/data_euc/EUC_CPT_LS10_all_cols.fits'
 #catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_30/FLASH_30_PICZL_ready.fits'
-catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_comp/combined_FLASH_PICZL_ready.fits'
+#catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_comp/combined_FLASH_PICZL_ready.fits'
+catalog_data_url = '/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/EUCLID_CTPs/EUC_CTPs_concat.fits'
 
 #image_data_url = "/home/wroster/learning-photoz/PICZL_new/gather_images/data_euc/"
-image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_comp/"
-
+#image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/FLASH_comp/"
+image_data_url = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/EUCLID_CTPs/"
 
 with tf.device('/GPU:0'):
 
@@ -103,7 +104,7 @@ with tf.device('/GPU:0'):
 
 
 	pwd = image_data_url
-	catalog_name = 'FLASH_'
+	catalog_name = 'EUCLID_'
 	append_output(dataset, pwd, catalog_name, ens_modes, l1s, u1s, area_in_interval, degeneracy)
 
 
