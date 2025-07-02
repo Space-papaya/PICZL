@@ -5,7 +5,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 from piczl.core.estimator import run_estimation
 from piczl.utilities import *
 
-DATA_PATH = '/home/wroster/learning-photoz/PICZL_OZ/tests/example_data/small/'
+test_dir = os.path.abspath(os.path.dirname(__file__))
+DATA_PATH = os.path.join(test_dir, "../example_data/small/")
 
 
 with tf.device('/GPU:0'):

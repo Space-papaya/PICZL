@@ -4,7 +4,7 @@ from astropy.table import Table
 import pickle
 import numpy as np
 import sys
-
+import os
 
 
 # ---------------------------------------------------------------
@@ -48,7 +48,8 @@ def fetch_catalog(url):
 
 
 	# Load ordered column names from text file
-	path = "/home/wroster/learning-photoz/PICZL_OZ/run_PICZL/files/required_columns.txt"
+	file_dir = os.path.abspath(os.path.dirname(__file__))
+	path = os.path.join(file_dir, "../../../run_PICZL/files/required_columns.txt")
 	with open(path, "r") as f:
 		ordered_columns = [line.strip() for line in f.readlines()]
 

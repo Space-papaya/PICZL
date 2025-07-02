@@ -18,7 +18,7 @@ The variables on which these functions can be run requires following characteris
 import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input,Dense,Conv2D,Dropout,MaxPooling2D,Flatten, Conv1D, BatchNormalization, Concatenate, MaxPooling1D, AveragePooling2D, UpSampling2D, ZeroPadding2D, Reshape, Lambda
-from tensorflow.keras.layers.experimental.preprocessing import RandomRotation, RandomFlip
+from keras.layers import RandomRotation, RandomFlip
 from tensorflow.keras.utils import plot_model
 
 
