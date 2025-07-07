@@ -54,7 +54,9 @@ def predict_redshifts(DATA_PATH=None, catalog_name=None, mode='active', subsampl
     print("u1s:", u1s[:5])
     print("degeneracy:", degeneracy[:5])
 
-    sys.exit()
 
     file_name = 'PICZL_predictions_'
-    output.append_output(dataset, DATA_PATH, file_name, z_modes, l1s, u1s, degeneracy)
+    save_path = os.path.abspath(os.path.join(catalog_path, '..'))
+    output.append_output(dataset, save_path + '/result/', file_name, z_modes, l1s, u1s, degeneracy)
+
+    print(">> Results saved.")
