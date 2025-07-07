@@ -42,7 +42,7 @@ def run_trainer(catalog_path, image_path, mode, sub_sample, max_sources):
 		print(type(train_labels), train_labels.dtype, train_labels.shape)
 
 
-		predictions, histories = run_models(
+		run_models(
 		loss_func=loss_functions.crps_loss,
 		epochs=50,
 		batch_sizes=[8],
@@ -59,7 +59,6 @@ def run_trainer(catalog_path, image_path, mode, sub_sample, max_sources):
 		test_features=test_features,
 		test_labels=test_labels
 		)
-
 
 
 

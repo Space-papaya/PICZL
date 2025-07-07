@@ -8,7 +8,7 @@ def train_model(
     model, epochs, batch_size, learning_rate, loss_func, version, train_images, train_col_images,
     train_features, train_labels, test_images, test_col_images, test_features, test_labels,
     load_best_weights=True,
-    save_full_model=False
+    save_full_model=True
 ):
 
     """
@@ -121,7 +121,7 @@ def train_model(
     else:
         print(">> Not loading best model weights.")
 
-    return history, model
+    return history, model, checkpoint_dir
 
 
 

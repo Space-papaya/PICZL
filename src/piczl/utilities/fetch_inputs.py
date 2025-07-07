@@ -67,7 +67,7 @@ def fetch_catalog(url_catalog, execute):
     print('\n >> Processing dataset ...')
     dataset = Table.read(url_catalog).to_pandas()
 
-    REQUIRED_COLUMNS_RUN = [col for col in REQUIRED_COLUMNS if col != 'Z']
+    REQUIRED_COLUMNS_RUN = [col for col in REQUIRED_COLUMNS if col != 'z']
 
     if execute == 'train':
         required_cols = REQUIRED_COLUMNS
