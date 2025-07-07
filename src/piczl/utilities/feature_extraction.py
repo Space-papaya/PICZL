@@ -53,7 +53,7 @@ def grab_features(dataset, mode):
         features_shape_e1_ivar = np.array(features.iloc[:, 146])
         features_shape_e2 = np.array(features.iloc[:, 147])
         features_shape_e2_ivar = np.array(features.iloc[:, 148])
-        features_type = np.array(features.iloc[:, 150:155])
+        features_type = np.array(features.iloc[:, 151:156])
         features_col = np.array(features.iloc[:, 213:229])
 
         feature_arrays = [
@@ -66,7 +66,7 @@ def grab_features(dataset, mode):
         features_snr = np.array(features.iloc[:, [5, 17, 29, 41, 53, 71, 89, 107]])
         features_dered_flux = np.array(features.iloc[:, [6, 18, 30, 42]])
         features_frac_flux = np.array(features.iloc[:, 133:141])
-        features_type = np.array(features.iloc[:, 150:155])
+        features_type = np.array(features.iloc[:, 151:156])
         features_col = np.array(features.iloc[:, 213:235])
 
         feature_arrays = [

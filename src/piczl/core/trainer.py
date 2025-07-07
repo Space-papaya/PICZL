@@ -22,26 +22,32 @@ def run_trainer(catalog_path, image_path, mode, sub_sample, max_sources):
 	"""
 
 	with tf.device('/GPU:0'):
-		# Set whether to include PSF images based on mode
 		psf = False if mode == 'active' else True
 
-		dataset, image_data = load_data.fetch_all_inputs(catalog_path, image_path, psf=psf, sub_sample_yesno=sub_sample, sub_sample_size=max_sources)
-		dataset = clean_and_extend.run_all_preprocessing(dataset)
-		features, index = feature_downselection.grab_features(dataset, mode)
-		images, images_col = handling_images.stack_images(image_data)
-		labels = dataset['Z']
+		dataset, image_data = fetch_inputs.fetch_all_data(catalog_path, image_path, exec='train', psf=psf, sub_sample_yesno=sub_sample, sub_sample_size=max_sources)
+		dataset = cat_preprocessing.run_all_preprocessing(dataset)
+		print(dataset)
+		features, index = feature_extraction.grab_features(dataset, mode)
+		images, images_col = image_processing.stack_images(image_data)
+		labels = dataset['z']
 
 
 		train_images, test_images, train_labels, test_labels, train_features, test_features, train_ind, test_ind, train_col_images, test_col_images \
 		= train_test_data.arrange_tt_features(images, images_col, features, index, labels)
 
 
+		print(type(train_images), train_images.dtype, train_images.shape)
+		print(type(train_col_images), train_col_images.dtype, train_col_images.shape)
+		print(type(train_features), train_features.dtype, train_features.shape)
+		print(type(train_labels), train_labels.dtype, train_labels.shape)
+
+
 		predictions, histories = run_models(
 		loss_func=loss_functions.crps_loss,
 		epochs=50,
-		batch_sizes=[512, 1024],
-		num_gaussian=[5, 6, 7],
-		learning_rates=[0.001, 0.002],
+		batch_sizes=[8],
+		num_gaussian=[5],
+		learning_rates=[0.001],
 		version='0_1',
 		features=features,
 		train_images=train_images,

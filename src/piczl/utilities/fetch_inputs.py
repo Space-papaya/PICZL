@@ -24,7 +24,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../s
 from piczl.config.required_columns import REQUIRED_COLUMNS
 
 
-def fetch_all_data(url_catalog, url_images, psf=False, sub_sample_yesno=True, sub_sample_size=20):
+def fetch_all_data(url_catalog, url_images, exec, psf=False, sub_sample_yesno=True, sub_sample_size=20):
     """
     Fetches the input catalog and associated images.
 
@@ -39,7 +39,7 @@ def fetch_all_data(url_catalog, url_images, psf=False, sub_sample_yesno=True, su
         tuple: (DataFrame, dict) where the DataFrame is the catalog and the dict contains image arrays.
     """
 
-    dataset = fetch_catalog(url_catalog)
+    dataset = fetch_catalog(url_catalog, exec)
     image_data = fetch_images(url_images, psf)
 
     if sub_sample_yesno:
@@ -53,7 +53,7 @@ def fetch_all_data(url_catalog, url_images, psf=False, sub_sample_yesno=True, su
     return dataset, image_data
 
 
-def fetch_catalog(url_catalog):
+def fetch_catalog(url_catalog, execute):
     """
     Reads in the FITS catalog and reorders its columns to match required input format.
 
@@ -67,13 +67,20 @@ def fetch_catalog(url_catalog):
     print('\n >> Processing dataset ...')
     dataset = Table.read(url_catalog).to_pandas()
 
-    missing_cols = [col for col in REQUIRED_COLUMNS if col not in dataset.columns]
+    REQUIRED_COLUMNS_RUN = [col for col in REQUIRED_COLUMNS if col != 'Z']
+
+    if execute == 'train':
+        required_cols = REQUIRED_COLUMNS
+    elif execute == 'run':
+        required_cols = REQUIRED_COLUMNS_RUN
+    else:
+        raise ValueError("exec must be either 'run' or 'train'")
+
+    missing_cols = [col for col in required_cols if col not in dataset.columns]
     if missing_cols:
         raise ValueError(f"The following required columns are missing from the catalog: {missing_cols}")
 
-    dataset = dataset.reindex(columns=REQUIRED_COLUMNS)
-
-    return dataset
+    return dataset.reindex(columns=required_cols)
 
 
 def fetch_images(url_images, psf):

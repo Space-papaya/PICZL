@@ -42,6 +42,7 @@ def run_all_preprocessing(dataset):
     pd.DataFrame
         The fully preprocessed catalog with added features.
     """
+    print(dataset)
     dataset = type_one_hot_encoding(dataset)
     dataset = fix_corrupted_fluxes(dataset)
     dataset = dereden_fluxes_add_colour_features(dataset)
