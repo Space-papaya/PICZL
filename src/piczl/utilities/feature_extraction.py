@@ -41,9 +41,9 @@ def grab_features(dataset, mode):
 
     features = dataset.copy()
     index = features.index
-    features = features.drop(['FULLID', 'RA', 'DEC', "Cat", 'type', 'TS_ID'], axis=1)
+    features = features.drop(["FULLID", "RA", "DEC", "Cat", "type", "TS_ID"], axis=1)
 
-    if mode != 'active':
+    if mode != "active":
         features_dchisq = np.array(features.iloc[:, 0:5])
         features_snr = np.array(features.iloc[:, [5, 17, 29, 41, 53, 71, 89, 107]])
         features_dered_flux = np.array(features.iloc[:, [6, 18, 30, 42]])
@@ -57,9 +57,15 @@ def grab_features(dataset, mode):
         features_col = np.array(features.iloc[:, 213:229])
 
         feature_arrays = [
-            'features_dchisq', 'features_snr', 'features_dered_flux',
-            'features_frac_flux', 'features_psf_size', 'features_shape_e1',
-            'features_shape_e1_ivar', 'features_shape_e2', 'features_shape_e2_ivar'
+            "features_dchisq",
+            "features_snr",
+            "features_dered_flux",
+            "features_frac_flux",
+            "features_psf_size",
+            "features_shape_e1",
+            "features_shape_e1_ivar",
+            "features_shape_e2",
+            "features_shape_e2_ivar",
         ]
     else:
         features_dchisq = np.array(features.iloc[:, 0:5])
@@ -70,8 +76,10 @@ def grab_features(dataset, mode):
         features_col = np.array(features.iloc[:, 213:235])
 
         feature_arrays = [
-            'features_dchisq', 'features_snr',
-            'features_dered_flux', 'features_frac_flux'
+            "features_dchisq",
+            "features_snr",
+            "features_dered_flux",
+            "features_frac_flux",
         ]
 
     scaled_features = {}
@@ -88,12 +96,12 @@ def grab_features(dataset, mode):
         if normalized.ndim == 1:
             normalized = normalized.reshape(-1, 1)
 
-        scaled_features[f'scaled_feature_{feature_name}'] = normalized
+        scaled_features[f"scaled_feature_{feature_name}"] = normalized
 
     numerical_features = np.concatenate(
         list(scaled_features.values()) + [features_col, features_type], axis=1
     )
 
-    print(' >> Feature extraction completed')
+    print(" >> Feature extraction completed")
 
     return numerical_features, index

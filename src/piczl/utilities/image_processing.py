@@ -30,8 +30,12 @@ def stack_images(image_data):
         images, images_col = stack_images(image_data)
     """
     # Separate keys based on suffix 'col'
-    col_variables = [var_name for var_name in image_data.keys() if var_name.endswith("col")]
-    non_col_variables = [var_name for var_name in image_data.keys() if not var_name.endswith("col")]
+    col_variables = [
+        var_name for var_name in image_data.keys() if var_name.endswith("col")
+    ]
+    non_col_variables = [
+        var_name for var_name in image_data.keys() if not var_name.endswith("col")
+    ]
 
     # Extract arrays in the same order as keys
     col_arrays = [image_data[var] for var in col_variables]

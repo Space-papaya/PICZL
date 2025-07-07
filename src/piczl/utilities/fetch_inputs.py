@@ -20,11 +20,14 @@ import pickle
 import numpy as np
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src")))
 from piczl.config.required_columns import REQUIRED_COLUMNS
 
 
-def fetch_all_data(url_catalog, url_images, exec, psf=False, sub_sample_yesno=True, sub_sample_size=20):
+def fetch_all_data(
+    url_catalog, url_images, exec, psf=False, sub_sample_yesno=True, sub_sample_size=20
+):
     """
     Fetches the input catalog and associated images.
 
@@ -64,28 +67,29 @@ def fetch_catalog(url_catalog, execute):
         pandas.DataFrame: Catalog with columns reordered.
     """
 
-    print('\n >> Processing dataset ...')
+    print("\n >> Processing dataset ...")
     dataset = Table.read(url_catalog).to_pandas()
 
-    REQUIRED_COLUMNS_RUN = [col for col in REQUIRED_COLUMNS if col != 'z']
+    REQUIRED_COLUMNS_RUN = [col for col in REQUIRED_COLUMNS if col != "z"]
 
-    if execute == 'train':
+    if execute == "train":
         required_cols = REQUIRED_COLUMNS
-    elif execute == 'run':
+    elif execute == "run":
         required_cols = REQUIRED_COLUMNS_RUN
     else:
         raise ValueError("exec must be either 'run' or 'train'")
 
     missing_cols = [col for col in required_cols if col not in dataset.columns]
     if missing_cols:
-        raise ValueError(f"The following required columns are missing from the catalog: {missing_cols}")
+        raise ValueError(
+            f"The following required columns are missing from the catalog: {missing_cols}"
+        )
 
     return dataset.reindex(columns=required_cols)
 
 
 def fetch_images(url_images, psf):
-
-    '''
+    """
     Loads image datasets for optical and IR bands from NumPy files.
 
     Args:
@@ -94,7 +98,7 @@ def fetch_images(url_images, psf):
 
     Returns:
         dict: Dictionary with keys corresponding to image or flux type and values as numpy arrays.
-    '''
+    """
 
     print(" >> Loading images ...")
     image_data = {}
@@ -112,12 +116,19 @@ def fetch_images(url_images, psf):
     images_griz = safe_load("processed_dered_griz_images.npy")
     if images_griz is not None:
         band_names = ["g", "r", "i", "z"]
-        image_data.update({f"im_{band}": images_griz[idx] for idx, band in enumerate(band_names)})
+        image_data.update(
+            {f"im_{band}": images_griz[idx] for idx, band in enumerate(band_names)}
+        )
 
     images_griz_col = safe_load("processed_dered_griz_colours.npy")
     if images_griz_col is not None:
         color_bands = ["gr", "gi", "gz", "ri", "rz", "iz"]
-        image_data.update({f"im_{color_bands[idx]}_col": images_griz_col[idx] for idx in range(len(color_bands))})
+        image_data.update(
+            {
+                f"im_{color_bands[idx]}_col": images_griz_col[idx]
+                for idx in range(len(color_bands))
+            }
+        )
 
     ap_ims_LS10 = safe_load("aperture_images_LS10.npy")
     if ap_ims_LS10 is not None:
@@ -132,12 +143,22 @@ def fetch_images(url_images, psf):
     ap_ims_LS10_cols = safe_load("aperture_images_LS10_colours.npy")
     if ap_ims_LS10_cols is not None:
         color_bands = ["gr", "gi", "gz", "ri", "rz", "iz"]
-        image_data.update({f"ap_im_{color_bands[idx]}_col": ap_ims_LS10_cols[idx] for idx in range(len(color_bands))})
+        image_data.update(
+            {
+                f"ap_im_{color_bands[idx]}_col": ap_ims_LS10_cols[idx]
+                for idx in range(len(color_bands))
+            }
+        )
 
     ap_ims_WISE_cols = safe_load("aperture_images_WISE_colours.npy")
     if ap_ims_WISE_cols is not None:
         wise_color_bands = ["w12", "w13", "w14", "w23", "w24", "w34"]
-        image_data.update({f"ap_im_{wise_color_bands[idx]}_col": ap_ims_WISE_cols[idx] for idx in range(len(wise_color_bands))})
+        image_data.update(
+            {
+                f"ap_im_{wise_color_bands[idx]}_col": ap_ims_WISE_cols[idx]
+                for idx in range(len(wise_color_bands))
+            }
+        )
 
     LS10_griz_res = safe_load("dered_griz_residuals.npy")
     if LS10_griz_res is not None:
@@ -164,12 +185,22 @@ def fetch_images(url_images, psf):
         for idx, band in enumerate(["g", "r", "i", "z"]):
             image_data[f"mod_{band}"] = mod_griz[idx]
 
-        for (b1, b2) in [("g", "r"), ("g", "i"), ("g", "z"), ("r", "i"), ("r", "z"), ("i", "z")]:
+        for b1, b2 in [
+            ("g", "r"),
+            ("g", "i"),
+            ("g", "z"),
+            ("r", "i"),
+            ("r", "z"),
+            ("i", "z"),
+        ]:
             if f"mod_{b1}" in image_data and f"mod_{b2}" in image_data:
                 image_data[f"mod_{b1}{b2}_col"] = np.nan_to_num(
-                    np.divide(image_data[f"mod_{b1}"], image_data[f"mod_{b2}"],
-                              out=np.zeros_like(image_data[f"mod_{b1}"]),
-                              where=image_data[f"mod_{b2}"] != 0)
+                    np.divide(
+                        image_data[f"mod_{b1}"],
+                        image_data[f"mod_{b2}"],
+                        out=np.zeros_like(image_data[f"mod_{b1}"]),
+                        where=image_data[f"mod_{b2}"] != 0,
+                    )
                 )
 
     if psf:

@@ -24,7 +24,7 @@ installing the TensorFlow package will auto-detect GPU support if available.
 ```Shell
 conda create -n *env-name* python=3.10
 conda activate *env-name*
-pip install piczl as pc
+pip install piczl
 ```
 
 ### Verify installation
@@ -32,7 +32,7 @@ pip install piczl as pc
 You can test the package and its dependencies by running a prediction on demo data:
 
 ```python
-from pc.execute.run import predict_redshifts
+from piczl.execute.run import predict_redshifts
 
 predict_redshifts(catalog_name="demo_catalog.fits", mode="inactive", subsample=True)
 ```

@@ -1,11 +1,14 @@
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 from piczl.core.estimator import run_estimation
 from piczl.utilities import *
 
 
-def predict_redshifts(DATA_PATH=None, catalog_name=None, mode='active', subsample=True, use_demo_data=True):
+def predict_redshifts(
+    DATA_PATH=None, catalog_name=None, mode="active", subsample=True, use_demo_data=True
+):
     """
     Run photometric redshift prediction for a given catalog and data path.
 
@@ -16,7 +19,7 @@ def predict_redshifts(DATA_PATH=None, catalog_name=None, mode='active', subsampl
     ----------
     DATA_PATH : str or None
         Directory path containing catalog and image data.
-	Ignored if 'use_demo_data' is used.
+        Ignored if 'use_demo_data' is used.
     catalog_name : str
         Filename of the catalog to process.
     mode : str
@@ -32,9 +35,8 @@ def predict_redshifts(DATA_PATH=None, catalog_name=None, mode='active', subsampl
         Prints output to console and saves results to disk.
     """
 
-
     if use_demo_data:
-        catalog_path, image_path = load_demo_data.get_demo_data_path('run')
+        catalog_path, image_path = load_demo_data.get_demo_data_path("run")
     else:
         catalog_path = os.path.join(DATA_PATH, catalog_name)
         image_data = DATA_PATH
@@ -44,19 +46,20 @@ def predict_redshifts(DATA_PATH=None, catalog_name=None, mode='active', subsampl
         image_path=image_path,
         mode=mode,
         sub_sample=subsample,
-        max_sources=20
+        max_sources=20,
     )
 
-    print('\n')
-    print(' >> Output header:')
+    print("\n")
+    print(" >> Output header:")
     print("z_peak:", [float(f"{z:.3f}") for z in z_modes[:5]])
     print("l1s:", l1s[:5])
     print("u1s:", u1s[:5])
     print("degeneracy:", degeneracy[:5])
 
-
-    file_name = 'PICZL_predictions_'
-    save_path = os.path.abspath(os.path.join(catalog_path, '..'))
-    output.append_output(dataset, save_path + '/result/', file_name, z_modes, l1s, u1s, degeneracy)
+    file_name = "PICZL_predictions_"
+    save_path = os.path.abspath(os.path.join(catalog_path, ".."))
+    output.append_output(
+        dataset, save_path + "/result/", file_name, z_modes, l1s, u1s, degeneracy
+    )
 
     print(">> Results saved.")
