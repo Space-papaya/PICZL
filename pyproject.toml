@@ -20,7 +20,7 @@ dependencies = [
     "pandas",
     "matplotlib",
     "scikit-learn",
-    "scipy==1.10.0",
+    "scipy",
     "PyYAML",
     "astropy",
     "tqdm",
