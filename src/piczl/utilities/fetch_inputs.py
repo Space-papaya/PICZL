@@ -108,9 +108,9 @@ def fetch_images(url_images, psf):
         try:
             return np.load(path, allow_pickle=True)
         except FileNotFoundError:
-            print(f"[Missing] {label}: '{filename}' not found.")
+            print(f"[Missing]: '{filename}' not found.")
         except Exception as e:
-            print(f"[Error] {label}: Could not load '{filename}' — {e}")
+            print(f"[Error]: Could not load '{filename}' — {e}")
         return None
 
     images_griz = safe_load("processed_dered_griz_images.npy")
