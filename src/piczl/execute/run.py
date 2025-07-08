@@ -1,5 +1,6 @@
 import os
 import sys
+import tensorflow as tf
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 from piczl.core.estimator import run_estimation
@@ -41,25 +42,27 @@ def predict_redshifts(
         catalog_path = os.path.join(DATA_PATH, catalog_name)
         image_data = DATA_PATH
 
-    z_modes, l1s, u1s, degeneracy, dataset = run_estimation(
-        catalog_path=catalog_path,
-        image_path=image_path,
-        mode=mode,
-        sub_sample=subsample,
-        max_sources=20,
-    )
+    device = gpu_configuration.set_computing()
+    with tf.device(device):
+        z_modes, l1s, u1s, degeneracy, dataset = run_estimation(
+            catalog_path=catalog_path,
+            image_path=image_path,
+            mode=mode,
+            sub_sample=subsample,
+            max_sources=20,
+        )
 
-    print("\n")
-    print(" >> Output header:")
-    print("z_peak:", [float(f"{z:.3f}") for z in z_modes[:5]])
-    print("l1s:", l1s[:5])
-    print("u1s:", u1s[:5])
-    print("degeneracy:", degeneracy[:5])
+        print("\n")
+        print(" >> Output header:")
+        print("z_peak:", [float(f"{z:.3f}") for z in z_modes[:5]])
+        print("l1s:", l1s[:5])
+        print("u1s:", u1s[:5])
+        print("degeneracy:", degeneracy[:5])
 
-    file_name = "PICZL_predictions_"
-    save_path = os.path.abspath(os.path.join(catalog_path, ".."))
-    output.append_output(
-        dataset, save_path + "/result/", file_name, z_modes, l1s, u1s, degeneracy
-    )
+        file_name = "PICZL_predictions_"
+        save_path = os.path.abspath(os.path.join(catalog_path, ".."))
+        output.append_output(
+            dataset, save_path + "/result/", file_name, z_modes, l1s, u1s, degeneracy
+        )
 
-    print(">> Results saved.")
+        print(">> Results saved.")
