@@ -5,9 +5,10 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "piczl"
 version = "0.1.0"
-description = "PICZL photometric redshifts."
+description = "PICZL Photometric redshift estimation for AGN and galaxies"
 authors = [
-    { name = "William Roster", email = "wroster@mpe.mpg.de" }
+    { name = "William Roster", email = "wroster@mpe.mpg.de" }, 
+    { name = "Raphael Shirley", email = "rshirley@mpe.mpg.de" }
 ]
 requires-python = ">=3.6"
 dependencies = [
@@ -19,7 +20,7 @@ dependencies = [
     "pandas",
     "matplotlib",
     "scikit-learn",
-    "scipy==1.10.0",
+    "scipy",
     "PyYAML",
     "astropy",
     "tqdm",

@@ -1,25 +1,23 @@
 import os
-import tensorflow as tf
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src')))
-from piczl.core.estimator import run_estimation
-from piczl.utilities import *
 
-test_dir = os.path.abspath(os.path.dirname(__file__))
-DATA_PATH = os.path.join(test_dir, "../example_data/small/")
+# Silence TensorFlow logs
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
+# Add src to sys.path
+src_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
+sys.path.insert(0, src_path)
 
-with tf.device('/GPU:0'):
-	z_modes, l1s, u1s, degeneracy, dataset = run_estimation(
-	catalog_path=DATA_PATH + "example_cat.fits",
-	image_path=DATA_PATH,
-	mode='inactive',
-	sub_sample = False,
-	max_sources=20
-	)
+# Verify path added
+print("sys.path[0]:", sys.path[0])  # should be path/to/project/src
 
-print("z_peak:", z_modes[:5])
-print("l1s:", l1s[:5])
-print("u1s:", u1s[:5])
-print("degeneracy:", degeneracy[:5])
+# Try import
+try:
+    from piczl.execute.run import predict_redshifts
+except ImportError as e:
+    print("Import failed:", e)
+    raise
 
+def test_run_function():
+    result = predict_redshifts()
+    print("predict_redshifts() returned:", result)
