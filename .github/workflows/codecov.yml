@@ -30,7 +30,7 @@ jobs:
 
     - name: Run tests with coverage
       run: |
-        pytest --cov --cov-branch --cov-report=xml
+        pytest --cov=piczl --cov-branch --cov-report=xml
 
     - name: Upload to Codecov
       uses: codecov/codecov-action@v5
