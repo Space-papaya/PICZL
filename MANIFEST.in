@@ -1,3 +1,4 @@
 include README.md
 include LICENSE
 recursive-include src/piczl/models *
+recursive-include src/piczl/demo_data *
