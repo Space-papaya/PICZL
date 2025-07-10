@@ -1,0 +1,33 @@
+name: Run tests and upload coverage to Codecov
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'  # Match your local version
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install pytest coverage
+
+    - name: Run tests with coverage
+      run: |
+        coverage run -m pytest
+        coverage xml  # generates coverage.xml
+
+    - name: Upload to Codecov
+      uses: codecov/codecov-action@v4
+
