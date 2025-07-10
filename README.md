@@ -1,4 +1,4 @@
-# PICZL
+# PICZL [![build](https://github.com/williamroster/PICZL/actions/workflows/codecov.yml/badge.svg)](https://github.com/williamroster/PICZL/actions/workflows/codecov.yml)
 
 **PICZL** (Photometrically Infered CNN Redshift Likelihoods) is a modular Python package for estimating photometric redshifts 
 of galaxies and AGN as observed in the 10th data release of the DESI Legacy survey by using both catalog-based photometry and imaging data. 
