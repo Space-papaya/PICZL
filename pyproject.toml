@@ -4,7 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "piczl"
-version = "0.1.2"
+license = {file = "LICENSE"}
+readme = "README.md"
+version = "0.1.4"
 description = "PICZL Photometric redshift estimation for AGN and galaxies"
 authors = [
     { name = "William Roster", email = "wroster@mpe.mpg.de" }, 
