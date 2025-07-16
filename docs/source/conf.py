@@ -36,9 +36,14 @@ exclude_patterns = []
 
 source_suffix = [".rst", ".ipynb", ".md"]
 pygments_style = 'colorful'
-autodoc_default_flags = ["members"]
+autodoc_default_options = {
+    'members': True,
+    'undoc-members': True,
+    'show-inheritance': True,
+    'inherited-members': True,
+}
 autosummary_generate = True
-napolean_use_rtype = False
+napoleon_use_rtype = False
 
 
 
