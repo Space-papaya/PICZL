@@ -2,16 +2,16 @@
    sphinx-quickstart on Tue Jul  8 16:50:21 2025.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
-  
-PICZL Documentation
-========================================================================================
 
 .. image:: https://github.com/user-attachments/assets/c1945de7-a3ab-4656-9171-faeaec8f5235
    :alt: PICZL logo
    :align: center
-   :width: 150px
+   :width: 250px
 
-**PICZL** is a modular Python package for estimating photometric redshifts of galaxies and AGN as observed in the 10th data release of the [DESI Legacy Survey](https://www.legacysurvey.org) by using both catalog-based photometry and imaging data. 
+**PICZL** is a modular Python package for estimating photometric redshifts of galaxies and AGN as observed in the 10th data release of the `DESI Legacy Survey <https://www.legacysurvey.org>`_by using both catalog-
+`JAX library <https://github.com/google/jax>`_
+
+based photometry and imaging data. 
 It supports inference using ensemble deep learning models and includes tools for: 
 
 - Gaussian Mixture Model (GMM) outputs with ensemble PDFs.
@@ -38,36 +38,3 @@ PICZL is designed for easy deployment, benchmarking, and use with custom data. I
          adsurl = {https://ui.adsabs.harvard.edu/abs/2024A&A...692A.260R},
          adsnote = {Provided by the SAO/NASA Astrophysics Data System}
          }
-
-
-Table of contents
------------------
-
-.. toctree::
-    :maxdepth: 1
-    :caption: Home page <self>
-
-    intro/Getting Started <getting_started>
-    intro/Advanced Installation <advanced_install>
-
-
-.. toctree::
-    :maxdepth: 1
-    :caption: Tutorials
-
-    notebooks/Usage with Python Interface <python_usage>
-    notebooks/Usage with Command Line Interface <commandline_usage>
-    notebooks/Detailed documentation <detailed>
-
-.. toctree::
-    :maxdepth: 3
-    :caption: API Documentation
-
-    PICZL
-
-
-
-.. toctree::
-   :hidden:
-
-   Acknowledgements <acknowledgements>
