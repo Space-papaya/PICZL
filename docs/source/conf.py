@@ -61,5 +61,5 @@ html_theme_options = {
     "image_dark": "_static/PICZL_logo.png",
 }
 }
-
+html_favicon = "_static/PICZL_logo.ico"
 html_static_path = ['_static']
