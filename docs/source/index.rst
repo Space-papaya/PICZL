@@ -49,5 +49,5 @@ Table of contents
     :maxdepth: 3
     :caption: API Documentation
 
-    PICZL
+    piczl
 
