@@ -38,7 +38,27 @@ If you need help with the code, or if you have feature requests, please use the 
 If you use PICZL in your research or projects, please cite the following paper:
 
 **[PICZL: Image-based photometric redshifts for AGN](https://doi.org/10.1051/0004-6361/202452361)** <br>
-*Authors: William Roster et al.*, *A&A*, *2024*
+
+```
+@ARTICLE{2024A&A...692A.260R,
+    author = {{Roster}, W. and {Salvato}, M. and {Krippendorf}, S. and {Saxena}, A. and {Shirley}, R. and {Buchner}, J. and {Wolf}, J. and {Dwelly}, T. and {Bauer}, F.~E. and {Aird}, J. and {Ricci}, C. and {Assef}, R.~J. and {Anderson}, S.~F. and {Liu}, X. and {Merloni}, A. and {Weller}, J. and {Nandra}, K.},
+    title = "{PICZL: Image-based photometric redshifts for AGN}",
+    journal = {\aap},
+    keywords = {methods: statistical, techniques: photometric, galaxies: active, quasars: supermassive black holes, Astrophysics - Astrophysics of Galaxies, Astrophysics - Instrumentation and Methods for Astrophysics, Statistics - Machine Learning},
+    year = 2024,
+    month = dec,
+    volume = {692},
+    eid = {A260},
+    pages = {A260},
+    doi = {10.1051/0004-6361/202452361},
+    archivePrefix = {arXiv},
+    eprint = {2411.07305},
+    primaryClass = {astro-ph.GA},
+    adsurl = {https://ui.adsabs.harvard.edu/abs/2024A&A...692A.260R},
+    adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+```
+
 
 Proper citation helps support continued development and maintenance of PICZL.
 
@@ -47,7 +67,7 @@ Proper citation helps support continued development and maintenance of PICZL.
 PICZL was developed by [William Roster](https://william.rosters.de). The packaging, module structuring, and GitHub integration were supported by [Raphael Shirley](http://raphaelshirley.co.uk/).
 
 Other contributors include:
-Aman Saxena (MPE), Mara Salvato (MPE)
+Aman Saxena (MPE), Mara Salvato (MPE), Sven Krippendorf (CAM)
 
 # Acknowledgements
 
