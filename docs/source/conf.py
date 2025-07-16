@@ -53,5 +53,6 @@ html_theme_options = {
     "use_edit_page_button": True,
     "logo_only": True,
 }
+html_logo = "_static/PICZL.png"
 
 html_static_path = ['_static']
