@@ -2,7 +2,7 @@
 |---|---|
 
 
-**PICZL** is a modular Python package for estimating photometric redshifts of galaxies and AGN as observed in the 10th data release of the DESI Legacy Survey by using both catalog-based photometry and imaging data. 
+**PICZL** is a modular Python package for estimating photometric redshifts of galaxies and AGN as observed in the 10th data release of the [DESI Legacy Survey](https://www.legacysurvey.org) by using both catalog-based photometry and imaging data. 
 It supports inference using ensemble deep learning models and includes tools for: 
 
 - Gaussian Mixture Model (GMM) outputs with ensemble PDFs.
@@ -13,7 +13,23 @@ It supports inference using ensemble deep learning models and includes tools for
 PICZL is designed for easy deployment, benchmarking, and use with custom data. The code documentation, including how to install it and to get started, can be found [here](https://PICZL.readthedocs.io/).
 
 
-# Requests and help
+# Contributing and Support
+
+We welcome contributions from the community to improve PICZL! If you'd like to contribute:
+
+- **Fork** the repository and create a feature branch.
+- Add **tests** for any new features or bug fixes.
+- Submit a **pull request** with a clear description of your changes.
+
+### Reporting Issues
+
+If you encounter bugs or have feature requests, please open an issue on the GitHub repository with:
+
+- A clear description of the problem or suggestion.
+- Steps to reproduce the issue (if applicable).
+- Your environment details (Python version, OS, GPU availability).
+
+### Getting Help
 
 If you need help with the code, or if you have feature requests, please use the github issue system to let us know.
 
@@ -21,27 +37,21 @@ If you need help with the code, or if you have feature requests, please use the 
 
 If you use PICZL in your research or projects, please cite the following paper:
 
-**[PICZL: Image-based photometric redshifts for AGN](https://doi.org/10.1051/0004-6361/202452361)**
-*Authors: William Roster et al.*, *A&A*, *2024*, DOI: https://doi.org/10.1051/0004-6361/202452361
+**[PICZL: Image-based photometric redshifts for AGN](https://doi.org/10.1051/0004-6361/202452361)** <br>
+*Authors: William Roster et al.*, *A&A*, *2024*
 
 Proper citation helps support continued development and maintenance of PICZL.
 
 # Contributors
 
-LePHARE was originally developped in Fortran by [Stéphane Arnouts](https://people.lam.fr/arnouts.stephane/) and [Olivier Ilbert](https://people.lam.fr/ilbert.olivier/).
-
-The C++ and python rewriting of the code is the work of Olivier Ilbert, [Johann Cohen-Tanugi](https://github.com/johannct), and [Raphael Shirley](http://raphaelshirley.co.uk/).
+PICZL was developed by [William Roster](https://william.rosters.de). The packaging, module structuring, and GitHub integration were supported by [Raphael Shirley](http://raphaelshirley.co.uk/).
 
 Other contributors include:
-Iary Davidzon, Mara Salvato (MPE), Cédric Dubois (LAM), and Maria Petkova.
+Aman Saxena (MPE), Mara Salvato (MPE)
 
-We acknowledge fruitful discussions with
-Emeric Le Floc'h (CEA), Léo Michel-Dansac (LAM), Jean-Charles Lambert (LAM).
+# Acknowledgements
 
-
-
-
-
+The authors gratefully acknowledge DLR support (Foerderkennzeichen 50002207).
 
 ## Installation
 
@@ -84,43 +94,10 @@ predict_redshifts(catalog_name="demo_catalog.fits", mode="inactive", subsample=T
 These predictions are saved in a FITS file called:
 ```PICZL_predictions_<original_catalog_name>.fits```
 
-
-
-## Contributing and Support
-
-We welcome contributions from the community to improve PICZL! If you'd like to contribute:
-
-- **Fork** the repository and create a feature branch.
-- Add **tests** for any new features or bug fixes.
-- Submit a **pull request** with a clear description of your changes.
-
-### Reporting Issues
-
-If you encounter bugs or have feature requests, please open an issue on the GitHub repository with:
-
-- A clear description of the problem or suggestion.
-- Steps to reproduce the issue (if applicable).
-- Your environment details (Python version, OS, GPU availability).
-
-### Getting Help
-
-For questions or usage help, you can:
-
-- Check the **README** and code documentation.
-- Reach out through the repository’s **discussion** board or contact the maintainers.
-
-
 ## License and Citation
 
 PICZL is released under the [MIT License], allowing free use, modification, and distribution.
 
-If you use PICZL in your research or projects, please cite the following paper:
-
-**PICZL: Image-based photometric redshifts for AGN**
-*Authors: William Roster et al.*, *A&A*, *2024*, DOI: https://doi.org/10.1051/0004-6361/202452361
-
-Proper citation helps support continued development and maintenance of PICZL.
-
 ---
 
-Thank you for using PICZL!
+Thank you!
