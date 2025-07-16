@@ -32,3 +32,18 @@ PICZL is designed for easy deployment, benchmarking, and use with custom data. I
          adsurl = {https://ui.adsabs.harvard.edu/abs/2024A&A...692A.260R},
          adsnote = {Provided by the SAO/NASA Astrophysics Data System}
          }
+
+'''
+Table of contents
+-----------------
+
+.. toctree::
+    :maxdepth: 1
+    :caption: Home page <self>
+
+    intro/Getting Started <getting_started>
+
+.. toctree::
+    :hidden:
+    PICZL
+
