@@ -19,7 +19,7 @@ environment to control Python version and isolate your installation:
 .. code-block:: bash
     
     #We strongly recommend using Python 3.10 to comply with TensorFlow's requirements
-    conda create -n <env_name> python=3.10 tensorflow=2.12 tensorflow-probability=0.18
+   conda create -n <env_name> python=3.10 tensorflow=2.12 tensorflow-probability=0.18 pandas=1.5.3 -c conda-forge
     conda activate <env_name>
     pip install PICZL
     # We have prepared an introductory notebooks. In order to run it
