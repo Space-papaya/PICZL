@@ -1,6 +1,5 @@
-# PICZL [![build](https://github.com/williamroster/PICZL/actions/workflows/codecov.yml/badge.svg)](https://github.com/williamroster/PICZL/actions/workflows/codecov.yml) [![codecov](https://codecov.io/gh/williamroster/PICZL/graph/badge.svg?token=Q1M4NTGECW)](https://codecov.io/gh/williamroster/PICZL) [![DOI](https://img.shields.io/badge/DOI-10.1051%2F0004--6361%2F202452361-blue)](https://doi.org/10.1051/0004-6361/202452361) [![Docs](https://img.shields.io/badge/docs-piczl-blue)](https://piczl.readthedocs.io/en/latest/piczl.utilities.html) [![PyPI version](https://img.shields.io/pypi/v/piczl.svg)](https://pypi.org/project/piczl/)
-
-<img src="https://github.com/williamroster/PICZL/blob/3ed33a30f0e9353202161bfee0a97f7d109741c1/PICZL_logo.pn" width="140"/>
+| <img width="140" height="140" alt="Image" src="https://github.com/user-attachments/assets/9d3e5768-cd0c-4988-ad80-7fa0eda11393" /> | PICZL <br> Photometrically Infered CNN Redshift Likelihoods <br> <br> [![build](https://github.com/williamroster/PICZL/actions/workflows/codecov.yml/badge.svg)](https://github.com/williamroster/PICZL/actions/workflows/codecov.yml) [![codecov](https://codecov.io/gh/williamroster/PICZL/graph/badge.svg?token=Q1M4NTGECW)](https://codecov.io/gh/williamroster/PICZL) [![DOI](https://img.shields.io/badge/DOI-10.1051%2F0004--6361%2F202452361-blue)](https://doi.org/10.1051/0004-6361/202452361) [![Docs](https://img.shields.io/badge/docs-piczl-blue)](https://piczl.readthedocs.io/en/latest/piczl.utilities.html) [![PyPI version](https://img.shields.io/pypi/v/piczl.svg)](https://pypi.org/project/piczl/)|
+|---|---|
 
 
 **PICZL** (Photometrically Infered CNN Redshift Likelihoods) is a modular Python package for estimating photometric redshifts 
