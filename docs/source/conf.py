@@ -51,7 +51,10 @@ html_theme_options = {
     "repository_url": "https://github.com/williamroster/PICZL",
     "use_repository_button": True,
     "use_edit_page_button": True,
-    "logo_only": True,
+    "logo": {
+    "image_light": "_static/PICZL.png",
+    "image_dark": "_static/PICZL.png",
+}
 }
 html_logo = "_static/PICZL.png"
 
