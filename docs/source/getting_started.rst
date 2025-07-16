@@ -53,7 +53,7 @@ in more detail below. We can therefore test predicting photometric redshifts for
 .. code-block:: python
 
      import PICZL as pc
-     pc.execute.run.run_predictions()
+     pc.execute.run.predict_redshifts()
 
 
 The following Python snippet is the most basic example to test the installation has worked. 
