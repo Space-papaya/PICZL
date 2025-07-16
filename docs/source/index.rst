@@ -3,16 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. image:: https://github.com/user-attachments/assets/c1945de7-a3ab-4656-9171-faeaec8f5235
-   :alt: PICZL logo
-   :align: center
-   :width: 250px
+Welcome to PICZL's documentation!
+========================================================================================
 
-**PICZL** is a modular Python package for estimating photometric redshifts of galaxies and AGN as observed in the 10th data release of the `DESI Legacy Survey <https://www.legacysurvey.org>`_by using both catalog-
-`JAX library <https://github.com/google/jax>`_
-
-based photometry and imaging data. 
-It supports inference using ensemble deep learning models and includes tools for: 
+**PICZL** is a modular Python package for estimating photometric redshifts of galaxies and AGN as observed in the 10th data release of the `DESI Legacy Survey <https://www.legacysurvey.org>`_ by using both catalog-based photometry and imaging data. It supports inference using ensemble deep learning models and includes tools for: 
 
 - Gaussian Mixture Model (GMM) outputs with ensemble PDFs.
 - Classification of redshift PDF degeneracies.
