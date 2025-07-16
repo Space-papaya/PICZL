@@ -34,6 +34,12 @@ extensions = [
 templates_path = ['_templates']
 exclude_patterns = []
 
+source_suffix = [".rst", ".ipynb", ".md"]
+pygments_style = 'colorful'
+autodoc_default_flags = ["members"]
+autosummary_generate = True
+napolean_use_rtype = False
+
 
 
 # -- Options for HTML output -------------------------------------------------
