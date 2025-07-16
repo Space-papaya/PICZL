@@ -56,6 +56,5 @@ html_theme_options = {
     "image_dark": "_static/PICZL_logo.png",
 }
 }
-html_logo = "_static/PICZL_logo.png"
 
 html_static_path = ['_static']
