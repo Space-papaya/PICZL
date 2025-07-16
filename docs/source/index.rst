@@ -6,7 +6,7 @@
 PICZL Documentation
 ========================================================================================
 
-.. image::https://github.com/user-attachments/assets/c1945de7-a3ab-4656-9171-faeaec8f5235
+.. image:: https://github.com/user-attachments/assets/c1945de7-a3ab-4656-9171-faeaec8f5235
    :alt: PICZL logo
    :align: center
    :width: 150px
