@@ -11,3 +11,6 @@ sphinx-rtd-theme
 sphinx-book-theme
 breathe
 exhale
+sphinx-autodoc-typehints
+myst-nb
+Pygments
