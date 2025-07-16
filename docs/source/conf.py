@@ -52,10 +52,10 @@ html_theme_options = {
     "use_repository_button": True,
     "use_edit_page_button": True,
     "logo": {
-    "image_light": "_static/PICZL.png",
-    "image_dark": "_static/PICZL.png",
+    "image_light": "_static/PICZL_logo.png",
+    "image_dark": "_static/PICZL_logo.png",
 }
 }
-html_logo = "_static/PICZL.png"
+html_logo = "_static/PICZL_logo.png"
 
 html_static_path = ['_static']
