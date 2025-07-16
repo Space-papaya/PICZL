@@ -23,7 +23,12 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',  # Optional, for Google or NumPy docstrings
     'sphinx.ext.viewcode',  # Optional, adds links to source code
-    'sphinx_book_theme'
+    'sphinx_book_theme',
+    'sphinx.ext.autosummary',
+    'sphinx_copybutton',
+    'matplotlib.sphinxext.plot_directive',
+    'sphinx_autodoc_typehints',
+    'myst_nb'
 ]
 
 templates_path = ['_templates']
@@ -35,4 +40,12 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_book_theme' #sphinx_rtd_theme
+
+html_theme_options = {
+    "repository_url": "https://github.com/williamroster/PICZL",
+    "use_repository_button": True,
+    "use_edit_page_button": True,
+    "logo_only": True,
+}
+
 html_static_path = ['_static']
