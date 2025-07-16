@@ -2,16 +2,45 @@
 |---|---|
 
 
-**PICZL** (Photometrically Infered CNN Redshift Likelihoods) is a modular Python package for estimating photometric redshifts 
-of galaxies and AGN as observed in the 10th data release of the DESI Legacy survey by using both catalog-based photometry and imaging data. 
+**PICZL** is a modular Python package for estimating photometric redshifts of galaxies and AGN as observed in the 10th data release of the DESI Legacy Survey by using both catalog-based photometry and imaging data. 
 It supports inference using ensemble deep learning models and includes tools for: 
 
-- Gaussian Mixture Model (GMM) PDF outputs with ensemble PDFs.
+- Gaussian Mixture Model (GMM) outputs with ensemble PDFs.
 - Classification of redshift PDF degeneracies.
-- Demonstration data and inference script for immediate use after installation.
+- Demonstration data for immediate use after installation.
 - Retraining the algorithm fine-tuned to a target object population.
 
-PICZL is designed for easy deployment, benchmarking, and use with custom data, for quick testing after installation.
+PICZL is designed for easy deployment, benchmarking, and use with custom data. The code documentation, including how to install it and to get started, can be found [here](https://PICZL.readthedocs.io/).
+
+
+# Requests and help
+
+If you need help with the code, or if you have feature requests, please use the github issue system to let us know.
+
+# Citing PICZL
+
+If you use PICZL in your research or projects, please cite the following paper:
+
+**[PICZL: Image-based photometric redshifts for AGN](https://doi.org/10.1051/0004-6361/202452361)**
+*Authors: William Roster et al.*, *A&A*, *2024*, DOI: https://doi.org/10.1051/0004-6361/202452361
+
+Proper citation helps support continued development and maintenance of PICZL.
+
+# Contributors
+
+LePHARE was originally developped in Fortran by [Stéphane Arnouts](https://people.lam.fr/arnouts.stephane/) and [Olivier Ilbert](https://people.lam.fr/ilbert.olivier/).
+
+The C++ and python rewriting of the code is the work of Olivier Ilbert, [Johann Cohen-Tanugi](https://github.com/johannct), and [Raphael Shirley](http://raphaelshirley.co.uk/).
+
+Other contributors include:
+Iary Davidzon, Mara Salvato (MPE), Cédric Dubois (LAM), and Maria Petkova.
+
+We acknowledge fruitful discussions with
+Emeric Le Floc'h (CEA), Léo Michel-Dansac (LAM), Jean-Charles Lambert (LAM).
+
+
+
+
 
 
 ## Installation
