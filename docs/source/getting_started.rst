@@ -1,7 +1,7 @@
 Getting Started
 ================
 
-1. Create a clean conda environment with fixed dependencies
+1. Create conda environment with fixed dependencies
 -----------------------------------------------------------
 
 You want to set up all core dependencies before installing your package. We strongly recommend using a conda 
