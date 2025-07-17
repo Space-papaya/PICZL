@@ -49,6 +49,6 @@ In order to run ``piczl`` we need auxiliary data in the form of a catalog hostin
      pc.execute.run.predict_redshifts()
 
 
-The following Python snippet is the most basic example to test the installation has worked. 
-This will generate a single output file stored in the ``demo/result/`` folder. The user may define storage locations later.
+This Python snippet is the most basic example to test the installation has worked. 
+It will generate a single output file stored in the ``demo/result/`` folder. The user may define storage locations later.
 You can also get an example notebook running this code `here <https://github.com>`_.
