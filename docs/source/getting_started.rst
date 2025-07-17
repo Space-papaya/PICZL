@@ -45,7 +45,7 @@ In order to run ``piczl`` we need auxiliary data in the form of a catalog hostin
 
 .. code-block:: python
 
-     import ``piczl`` as pc
+     import piczl as pc
      pc.execute.run.predict_redshifts()
 
 
