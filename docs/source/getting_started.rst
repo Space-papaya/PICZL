@@ -1,7 +1,7 @@
 Getting Started
 ================
 
-1. Create conda environment with fixed dependencies
+Create conda environment with fixed dependencies
 -----------------------------------------------------------
 
 You want to set up all core dependencies before installing your package. We strongly recommend using a conda 
@@ -13,7 +13,7 @@ environment to control Python version compliance and isolate your installation. 
     conda activate piczl_env
 
 
-2. Install piczl package
+Install piczl package
 ------------------------
 
 ``piczl`` is distributed with the Python Package Index `(PyPI) <https://pypi.org/project/PICZL/>`_, and 
