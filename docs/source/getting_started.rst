@@ -41,14 +41,30 @@ At this stage, the following Python snippet should work:
 
     import piczl as pc
 
-In order to run ``piczl`` we need auxiliary data in the form of a catalog hosting LS10 columns for a set of galaxies/AGN and their subsequent imaging cutouts. A small demo set of both is shipped with the code (~0.3Gb). The import and handling of samples is explained in more detail below. We can now test predicting photometric redshifts for the demo data via:
+In order to run ``piczl`` we need auxiliary data in the form of a catalog hosting LS10 columns for a set of galaxies/AGN and their subsequent imaging cutouts. A small demo set of both is shipped with the code (~20Mb). The import and handling of samples is explained in more detail below. We can now test predicting photometric redshifts for the demo data via:
 
 .. code-block:: python
 
      import piczl as pc
-     pc.execute.run.predict_redshifts()
+     output = pc.execute.run.predict_redshifts()
+
+This minimal Python example verifies that the installation was successful. It produces a single output file containing a demo catalog with additional redshift-related columns in a DataFrame.
+You can customize the output location later as needed. A full example notebook running this code is available `here <https://github.com>`_.
 
 
-This Python snippet is the most basic example to test the installation has worked. 
-It will generate a single output file stored in the ``demo/result/`` folder. The user may define storage locations later.
-You can also get an example notebook running this code `here <https://github.com>`_.
+The Configuration Keywords
+==========================
+
+Most users will want to apply ``piczl`` to their own datasets, which requires adjusting the input data path and selecting the appropriate inference mode. By default, the package includes pre-trained models tailored for both ``inactive`` and ``active`` galaxy populations.
+
+.. code-block:: python 
+
+    predict_redshifts(data_path="/../..",
+        image_path ="/../..",
+        subsample=False,
+        catalog_name="..",
+        use_demo_data=False)
+
+
+For more advanced use cases, users can choose to retrain or fine-tune these models on a specific target population. This can be done either by keeping the default setup and switching the mode, or by exploring and customizing the training configuration, model architectures, and other adjustable components. 
+
